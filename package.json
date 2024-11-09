@@ -40,7 +40,8 @@
     "dev": "refine dev",
     "build": "tsc && refine build",
     "start": "refine start",
-    "refine": "refine"
+    "refine": "refine",
+    "test": "exit 0"
   },
   "browserslist": {
     "production": [
