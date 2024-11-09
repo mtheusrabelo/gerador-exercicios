@@ -1,12 +1,13 @@
-import { DataGrid, type GridColDef } from "@mui/x-data-grid";
+import { DataGrid, type GridColDef } from '@mui/x-data-grid';
+import { ptBR } from '@mui/x-data-grid/locales';
 import {
   DeleteButton,
   EditButton,
   List,
   ShowButton,
   useDataGrid,
-} from "@refinedev/mui";
-import React from "react";
+} from '@refinedev/mui';
+import React from 'react';
 
 export const CategoryList = () => {
   const { dataGridProps } = useDataGrid({});
@@ -14,20 +15,34 @@ export const CategoryList = () => {
   const columns = React.useMemo<GridColDef[]>(
     () => [
       {
-        field: "id",
-        headerName: "ID",
-        type: "number",
-        minWidth: 50,
+        field: 'id',
+        headerAlign: 'left',
+        headerName: 'ID',
+        type: 'number',
+        maxWidth: 200,
       },
       {
-        field: "title",
-        flex: 1,
-        headerName: "Title",
+        field: 'name',
+        headerAlign: 'left',
+        headerName: 'Nome',
         minWidth: 200,
       },
       {
-        field: "actions",
-        headerName: "Actions",
+        field: 'description',
+        headerAlign: 'left',
+        flex: 2,
+        headerName: 'Descrição',
+        minWidth: 200,
+      },
+      {
+        field: 'createdAt',
+        headerAlign: 'left',
+        headerName: 'Data de criação',
+        minWidth: 200,
+      },
+      {
+        field: 'actions',
+        headerName: 'Ações',
         sortable: false,
         renderCell: function render({ row }) {
           return (
@@ -38,17 +53,22 @@ export const CategoryList = () => {
             </>
           );
         },
-        align: "center",
-        headerAlign: "center",
-        minWidth: 80,
+        align: 'center',
+        headerAlign: 'left',
+        minWidth: 200,
       },
     ],
-    []
+    [],
   );
 
   return (
     <List>
-      <DataGrid {...dataGridProps} columns={columns} autoHeight />
+      <DataGrid
+        {...dataGridProps}
+        columns={columns}
+        autoHeight
+        localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
+      />
     </List>
   );
 };
