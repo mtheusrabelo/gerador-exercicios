@@ -17,6 +17,8 @@ import { exerciseProvider } from './providers/exercise.provider';
 import { resources } from './resources';
 import { Routes } from './routes';
 
+const pageTitle = 'Gerador de exercícios';
+
 function App() {
   return (
     <BrowserRouter>
@@ -43,7 +45,7 @@ function App() {
                 <Routes />
                 <RefineKbar />
                 <UnsavedChangesNotifier />
-                <DocumentTitleHandler />
+                <DocumentTitleHandler handler={() => pageTitle} />
               </Refine>
               <DevtoolsPanel />
             </DevtoolsProvider>
