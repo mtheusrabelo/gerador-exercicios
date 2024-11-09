@@ -5,17 +5,14 @@ import { Outlet, Route, Routes as RoutesDom } from 'react-router-dom';
 
 import { Header } from './components/header';
 import {
-  BlogPostCreate,
-  BlogPostEdit,
-  BlogPostList,
-  BlogPostShow,
-} from './pages/blog-posts';
-import {
   CategoryCreate,
   CategoryEdit,
   CategoryList,
   CategoryShow,
 } from './pages/categories';
+import { DashboadList } from './pages/dashboard';
+import { ExerciseCreate, ExerciseEdit, ExerciseShow } from './pages/exercises';
+import { SettingsList } from './pages/settings';
 
 export const Routes = () => (
   <RoutesDom>
@@ -26,19 +23,21 @@ export const Routes = () => (
         </ThemedLayoutV2>
       }
     >
-      <Route index element={<NavigateToResource resource="blog_posts" />} />
-      <Route path="/blog-posts">
-        <Route index element={<BlogPostList />} />
-        <Route path="create" element={<BlogPostCreate />} />
-        <Route path="edit/:id" element={<BlogPostEdit />} />
-        <Route path="show/:id" element={<BlogPostShow />} />
-      </Route>
+      <Route index element={<NavigateToResource resource="dashboard" />} />
       <Route path="/categories">
         <Route index element={<CategoryList />} />
         <Route path="create" element={<CategoryCreate />} />
         <Route path="edit/:id" element={<CategoryEdit />} />
         <Route path="show/:id" element={<CategoryShow />} />
       </Route>
+      <Route path="/exercises">
+        <Route index element={<CategoryList />} />
+        <Route path="create" element={<ExerciseCreate />} />
+        <Route path="edit/:id" element={<ExerciseEdit />} />
+        <Route path="show/:id" element={<ExerciseShow />} />
+      </Route>
+      <Route path="/dashboard" element={<DashboadList />} />
+      <Route path="/settings" element={<SettingsList />} />
       <Route path="*" element={<ErrorComponent />} />
     </Route>
   </RoutesDom>

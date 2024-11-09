@@ -1,16 +1,18 @@
-import { DashboardOutlined, OutlinedFlagOutlined } from '@mui/icons-material';
+import {
+  CategoryOutlined,
+  HomeOutlined,
+  QuizOutlined,
+  SettingsOutlined,
+} from '@mui/icons-material';
+import { ResourceProps } from '@refinedev/core';
 
-export const resources = [
+export const resources: ResourceProps[] = [
   {
-    name: 'blog_posts',
-    list: '/blog-posts',
-    create: '/blog-posts/create',
-    edit: '/blog-posts/edit/:id',
-    show: '/blog-posts/show/:id',
+    name: 'dashboard',
+    list: '/dashboard',
     meta: {
-      canDelete: true,
-      label: 'Posts',
-      icon: <DashboardOutlined />,
+      label: 'Início',
+      icon: <HomeOutlined />,
     },
   },
   {
@@ -21,8 +23,29 @@ export const resources = [
     show: '/categories/show/:id',
     meta: {
       canDelete: true,
-      label: 'Categories',
-      icon: <OutlinedFlagOutlined />,
+      label: 'Categorias',
+      icon: <CategoryOutlined />,
+    },
+  },
+  {
+    name: 'exercises',
+    list: '/exercises',
+    create: '/exercises/create',
+    edit: '/exercises/edit/:id',
+    show: '/exercises/show/:id',
+    meta: {
+      canDelete: true,
+      label: 'Exercícios',
+      icon: <QuizOutlined />,
+    },
+  },
+  {
+    name: 'settings',
+    list: '/settings',
+    meta: {
+      canDelete: true,
+      label: 'Configurações',
+      icon: <SettingsOutlined />,
     },
   },
 ];

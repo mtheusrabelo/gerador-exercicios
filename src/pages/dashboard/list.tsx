@@ -1,5 +1,5 @@
-import { DataGrid, type GridColDef } from "@mui/x-data-grid";
-import { useMany } from "@refinedev/core";
+import { DataGrid, type GridColDef } from '@mui/x-data-grid';
+import { useMany } from '@refinedev/core';
 import {
   DateField,
   DeleteButton,
@@ -8,16 +8,16 @@ import {
   MarkdownField,
   ShowButton,
   useDataGrid,
-} from "@refinedev/mui";
-import React from "react";
+} from '@refinedev/mui';
+import React from 'react';
 
-export const BlogPostList = () => {
+export const DashboadList = () => {
   const { dataGridProps } = useDataGrid({
     syncWithLocation: true,
   });
 
   const { data: categoryData, isLoading: categoryIsLoading } = useMany({
-    resource: "categories",
+    resource: 'dashboard',
     ids:
       dataGridProps?.rows
         ?.map((item: any) => item?.category?.id)
@@ -30,31 +30,31 @@ export const BlogPostList = () => {
   const columns = React.useMemo<GridColDef[]>(
     () => [
       {
-        field: "id",
-        headerName: "ID",
-        type: "number",
+        field: 'id',
+        headerName: 'ID',
+        type: 'number',
         minWidth: 50,
       },
       {
-        field: "title",
+        field: 'title',
         flex: 1,
-        headerName: "Title",
+        headerName: 'Title',
         minWidth: 200,
       },
       {
-        field: "content",
+        field: 'content',
         flex: 1,
-        headerName: "Content",
+        headerName: 'Content',
         minWidth: 250,
         renderCell: function render({ value }) {
-          if (!value) return "-";
-          return <MarkdownField value={value?.slice(0, 80) + "..." || ""} />;
+          if (!value) return '-';
+          return <MarkdownField value={value?.slice(0, 80) + '...' || ''} />;
         },
       },
       {
-        field: "category",
+        field: 'category',
         flex: 1,
-        headerName: "Category",
+        headerName: 'Category',
         minWidth: 300,
         valueGetter: ({ row }) => {
           const value = row?.category;
@@ -69,23 +69,23 @@ export const BlogPostList = () => {
         },
       },
       {
-        field: "status",
+        field: 'status',
         flex: 1,
-        headerName: "Status",
+        headerName: 'Status',
         minWidth: 200,
       },
       {
-        field: "createdAt",
+        field: 'createdAt',
         flex: 1,
-        headerName: "Created at",
+        headerName: 'Created at',
         minWidth: 250,
         renderCell: function render({ value }) {
           return <DateField value={value} />;
         },
       },
       {
-        field: "actions",
-        headerName: "Actions",
+        field: 'actions',
+        headerName: 'Actions',
         sortable: false,
         renderCell: function render({ row }) {
           return (
@@ -96,12 +96,12 @@ export const BlogPostList = () => {
             </>
           );
         },
-        align: "center",
-        headerAlign: "center",
+        align: 'center',
+        headerAlign: 'center',
         minWidth: 80,
       },
     ],
-    [categoryData]
+    [categoryData],
   );
 
   return (
