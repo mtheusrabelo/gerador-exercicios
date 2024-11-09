@@ -12,6 +12,7 @@ export const resources: ResourceProps[] = [
     list: '/dashboard',
     meta: {
       label: 'Início',
+      canDelete: false,
       icon: <HomeOutlined />,
     },
   },
@@ -43,7 +44,7 @@ export const resources: ResourceProps[] = [
     name: 'settings',
     list: '/settings',
     meta: {
-      canDelete: true,
+      canDelete: false,
       label: 'Configurações',
       icon: <SettingsOutlined />,
     },
