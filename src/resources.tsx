@@ -1,3 +1,5 @@
+import { DashboardOutlined, OutlinedFlagOutlined } from '@mui/icons-material';
+
 export const resources = [
   {
     name: 'blog_posts',
@@ -7,6 +9,8 @@ export const resources = [
     show: '/blog-posts/show/:id',
     meta: {
       canDelete: true,
+      label: 'Posts',
+      icon: <DashboardOutlined />,
     },
   },
   {
@@ -17,6 +21,8 @@ export const resources = [
     show: '/categories/show/:id',
     meta: {
       canDelete: true,
+      label: 'Categories',
+      icon: <OutlinedFlagOutlined />,
     },
   },
 ];
