@@ -1,91 +1,48 @@
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
-import { useMany } from '@refinedev/core';
+import { ptBR } from '@mui/x-data-grid/locales';
 import {
-  DateField,
   DeleteButton,
   EditButton,
   List,
-  MarkdownField,
   ShowButton,
   useDataGrid,
 } from '@refinedev/mui';
 import React from 'react';
 
 export const ExerciseList = () => {
-  const { dataGridProps } = useDataGrid({
-    syncWithLocation: true,
-  });
-
-  const { data: categoryData, isLoading: categoryIsLoading } = useMany({
-    resource: 'exercises',
-    ids:
-      dataGridProps?.rows
-        ?.map((item: any) => item?.category?.id)
-        .filter(Boolean) ?? [],
-    queryOptions: {
-      enabled: !!dataGridProps?.rows,
-    },
-  });
+  const { dataGridProps } = useDataGrid({});
 
   const columns = React.useMemo<GridColDef[]>(
     () => [
       {
         field: 'id',
+        headerAlign: 'left',
         headerName: 'ID',
         type: 'number',
-        minWidth: 50,
-      },
-      {
-        field: 'title',
-        flex: 1,
-        headerName: 'Title',
-        minWidth: 200,
-      },
-      {
-        field: 'content',
-        flex: 1,
-        headerName: 'Content',
-        minWidth: 250,
-        renderCell: function render({ value }) {
-          if (!value) return '-';
-          return <MarkdownField value={value?.slice(0, 80) + '...' || ''} />;
-        },
+        maxWidth: 200,
       },
       {
         field: 'category',
-        flex: 1,
-        headerName: 'Category',
-        minWidth: 300,
-        valueGetter: ({ row }) => {
-          const value = row?.category;
-          return value;
-        },
-        renderCell: function render({ value }) {
-          return categoryIsLoading ? (
-            <>Loading...</>
-          ) : (
-            categoryData?.data?.find((item) => item.id === value?.id)?.title
-          );
-        },
+        headerAlign: 'left',
+        headerName: 'Categoria',
+        minWidth: 200,
       },
       {
-        field: 'status',
-        flex: 1,
-        headerName: 'Status',
+        field: 'statement',
+        headerAlign: 'left',
+        flex: 2,
+        headerName: 'Enunciado',
         minWidth: 200,
       },
       {
         field: 'createdAt',
-        flex: 1,
-        headerName: 'Created at',
-        minWidth: 250,
-        renderCell: function render({ value }) {
-          return <DateField value={value} />;
-        },
+        headerAlign: 'left',
+        headerName: 'Data de criação',
+        minWidth: 200,
       },
       {
         field: 'actions',
-        headerName: 'Actions',
+        headerName: 'Ações',
         sortable: false,
         renderCell: function render({ row }) {
           return (
@@ -97,16 +54,21 @@ export const ExerciseList = () => {
           );
         },
         align: 'center',
-        headerAlign: 'center',
-        minWidth: 80,
+        headerAlign: 'left',
+        minWidth: 200,
       },
     ],
-    [categoryData],
+    [],
   );
 
   return (
     <List>
-      <DataGrid {...dataGridProps} columns={columns} autoHeight />
+      <DataGrid
+        {...dataGridProps}
+        columns={columns}
+        autoHeight
+        localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
+      />
     </List>
   );
 };

@@ -11,7 +11,12 @@ import {
   CategoryShow,
 } from './pages/categories';
 import { DashboadList } from './pages/dashboard';
-import { ExerciseCreate, ExerciseEdit, ExerciseShow } from './pages/exercises';
+import {
+  ExerciseCreate,
+  ExerciseEdit,
+  ExerciseList,
+  ExerciseShow,
+} from './pages/exercises';
 import { SettingsList } from './pages/settings';
 
 export const Routes = () => (
@@ -31,7 +36,7 @@ export const Routes = () => (
         <Route path="show/:id" element={<CategoryShow />} />
       </Route>
       <Route path="/exercises">
-        <Route index element={<CategoryList />} />
+        <Route index element={<ExerciseList />} />
         <Route path="create" element={<ExerciseCreate />} />
         <Route path="edit/:id" element={<ExerciseEdit />} />
         <Route path="show/:id" element={<ExerciseShow />} />
