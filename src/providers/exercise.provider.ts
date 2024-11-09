@@ -5,37 +5,37 @@ export const exerciseProvider: DataProvider = {
     return {
       data: [],
       total: 0,
-    };
+    } as any;
   },
   getOne: async ({ resource, id, meta }) => {
     return {
       data: {},
       total: 0,
-    };
+    } as any;
   },
   create: async ({ resource, variables, meta }) => {
     return {
       data: {},
       total: 0,
-    };
+    } as any;
   },
   update: async ({ resource, variables, meta }) => {
     return {
       data: {},
       total: 0,
-    };
+    } as any;
   },
   deleteOne: async ({ resource, id, meta }) => {
     return {
       data: {},
       total: 0,
-    };
+    } as any;
   },
   getApiUrl: () => '',
-  custom: async ({ resource, variables, meta }) => {
+  custom: async ({ url, method, payload, meta }) => {
     return {
       data: {},
       total: 0,
-    };
+    } as any;
   },
 };
