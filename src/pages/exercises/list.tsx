@@ -1,3 +1,4 @@
+import { Alert } from '@mui/material';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import { ptBR } from '@mui/x-data-grid/locales';
 import {
@@ -60,6 +61,19 @@ export const ExerciseList = () => {
     ],
     [],
   );
+
+  const hasAPIKey = false;
+
+  if (!hasAPIKey) {
+    return (
+      <List headerButtons={() => <></>}>
+        <Alert severity="warning">
+          Você precisa cadastrar um modelo e API Key da OpenAI antes de gerar
+          exercícios.
+        </Alert>
+      </List>
+    );
+  }
 
   return (
     <List>
