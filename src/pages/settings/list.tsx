@@ -54,7 +54,7 @@ export const SettingsList = () => {
       headerButtons={() => (
         <>
           <Button variant="outlined" endIcon={<DeleteForeverOutlined />}>
-            Limpar dados
+            Limpar todos os dados
           </Button>
           <Button
             onClick={() => saveSettings()}
