@@ -1,7 +1,9 @@
-import { Alert } from '@mui/material';
+import { AutoAwesome, EditNoteOutlined } from '@mui/icons-material';
+import { Alert, Button } from '@mui/material';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import { ptBR } from '@mui/x-data-grid/locales';
 import {
+  DateField,
   DeleteButton,
   EditButton,
   List,
@@ -11,7 +13,9 @@ import {
 import React from 'react';
 
 export const ExerciseList = () => {
-  const { dataGridProps } = useDataGrid({});
+  const { dataGridProps } = useDataGrid({
+    dataProviderName: 'exercises',
+  });
 
   const columns = React.useMemo<GridColDef[]>(
     () => [
@@ -23,7 +27,7 @@ export const ExerciseList = () => {
         maxWidth: 200,
       },
       {
-        field: 'category',
+        field: 'categoryName',
         headerAlign: 'left',
         headerName: 'Categoria',
         minWidth: 200,
@@ -39,7 +43,10 @@ export const ExerciseList = () => {
         field: 'createdAt',
         headerAlign: 'left',
         headerName: 'Data de criação',
-        minWidth: 200,
+        minWidth: 180,
+        renderCell: function render({ value }) {
+          return <DateField format="DD/MM/YYYY HH:mm:ss" value={value} />;
+        },
       },
       {
         field: 'actions',
@@ -48,6 +55,14 @@ export const ExerciseList = () => {
         renderCell: function render({ row }) {
           return (
             <>
+              <Button
+                href="/categories/create"
+                variant="outlined"
+                endIcon={<EditNoteOutlined />}
+              >
+                Resolver
+              </Button>
+              <span>&nbsp;&nbsp;</span>
               <EditButton hideText recordItemId={row.id} />
               <ShowButton hideText recordItemId={row.id} />
               <DeleteButton hideText recordItemId={row.id} />
@@ -56,13 +71,13 @@ export const ExerciseList = () => {
         },
         align: 'center',
         headerAlign: 'left',
-        minWidth: 200,
+        minWidth: 300,
       },
     ],
     [],
   );
 
-  const hasAPIKey = false;
+  const hasAPIKey = true;
 
   if (!hasAPIKey) {
     return (
@@ -76,7 +91,17 @@ export const ExerciseList = () => {
   }
 
   return (
-    <List>
+    <List
+      headerButtons={[
+        <Button
+          href="/categories/create"
+          variant="contained"
+          endIcon={<AutoAwesome />}
+        >
+          Gerar com IA
+        </Button>,
+      ]}
+    >
       <DataGrid
         {...dataGridProps}
         columns={columns}

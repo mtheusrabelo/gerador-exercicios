@@ -16,9 +16,6 @@ export const CategoryList = () => {
     dataProviderName: 'categories',
   });
 
-  console.log('dataGridProps');
-  console.log(dataGridProps);
-
   const columns = React.useMemo<GridColDef[]>(
     () => [
       {
