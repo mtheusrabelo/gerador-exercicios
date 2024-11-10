@@ -7,6 +7,11 @@ export const repository = new Dexie('Database') as Dexie & {
   settings: EntityTable<SettingsDto, 'id'>;
 };
 
+export const cleanDatabase = () => {
+  repository.delete();
+  window.location.reload();
+};
+
 repository.version(1).stores({
   categories: 'id, name, description, createdAt',
   exercises: 'id, title, statement, categoryId, createdAt',

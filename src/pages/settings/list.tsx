@@ -4,6 +4,7 @@ import { useCreate, useList } from '@refinedev/core';
 import { List } from '@refinedev/mui';
 import { useForm } from '@refinedev/react-hook-form';
 import { useState } from 'react';
+import { cleanDatabase } from '../../utils/database';
 
 export const SettingsList = () => {
   const {
@@ -53,7 +54,11 @@ export const SettingsList = () => {
       title="Configurações"
       headerButtons={() => (
         <>
-          <Button variant="outlined" endIcon={<DeleteForeverOutlined />}>
+          <Button
+            onClick={() => cleanDatabase()}
+            variant="outlined"
+            endIcon={<DeleteForeverOutlined />}
+          >
             Limpar todos os dados
           </Button>
           <Button
