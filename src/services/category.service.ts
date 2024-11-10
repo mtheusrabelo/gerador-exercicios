@@ -4,18 +4,20 @@ import { CategoryDto } from '../utils/dtos';
 import { generateGuid } from '../utils/generateGuid';
 import { mountDatabasePagination } from '../utils/pagination';
 
-class CategoryService {
+export class CategoryService {
+  constructor(private readonly repository: any) {}
+
   async getAll(pagination?: Pagination) {
     const { offset, limit } = mountDatabasePagination(pagination as any);
 
-    const data = await repository.categories
+    const data = await this.repository.categories
       .orderBy('createdAt')
       .reverse()
       .limit(limit)
       .offset(offset)
       .toArray();
 
-    const total = await repository.categories.count();
+    const total = await this.repository.categories.count();
 
     return {
       data,
@@ -24,7 +26,7 @@ class CategoryService {
   }
 
   async getOne(id: string) {
-    const data = await repository.categories.get(id);
+    const data = await this.repository.categories.get(id);
 
     return {
       data,
@@ -38,8 +40,8 @@ class CategoryService {
     const newCategory = { ...category, id, createdAt };
     console.log('service newCategory', newCategory);
 
-    await repository.categories.add(newCategory);
-    const data = await repository.categories.get(id);
+    await this.repository.categories.add(newCategory);
+    const data = await this.repository.categories.get(id);
 
     return {
       data,
@@ -48,8 +50,8 @@ class CategoryService {
   }
 
   async update(id: string, category: CategoryDto) {
-    await repository.categories.update(id, category);
-    const data = await repository.categories.get(id);
+    await this.repository.categories.update(id, category);
+    const data = await this.repository.categories.get(id);
 
     return {
       data,
@@ -58,8 +60,8 @@ class CategoryService {
   }
 
   async deleteOne(id: string) {
-    const category = await repository.categories.get(id);
-    await repository.categories.delete(id);
+    const category = await this.repository.categories.get(id);
+    await this.repository.categories.delete(id);
 
     return {
       data: category,
@@ -68,4 +70,4 @@ class CategoryService {
   }
 }
 
-export const categoryService = new CategoryService();
+export const categoryService = new CategoryService(repository);

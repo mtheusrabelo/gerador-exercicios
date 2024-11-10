@@ -9,9 +9,11 @@ const BASE_SETTINGS = {
   prompt: `prompt`,
 };
 
-class SettingsService {
+export class SettingsService {
+  constructor(private readonly repository: any) {}
+
   async get() {
-    const savedSettings = await repository.settings.get(FIXED_ID);
+    const savedSettings = await this.repository.settings.get(FIXED_ID);
     const data = savedSettings || BASE_SETTINGS;
 
     return {
@@ -21,17 +23,17 @@ class SettingsService {
   }
 
   async hasSettings() {
-    const count = await repository.settings.count();
+    const count = await this.repository.settings.count();
     return count > 0;
   }
 
   async save(settings: SettingsDto) {
     const hasSettings = await this.hasSettings();
     if (!hasSettings) {
-      await repository.settings.add({ ...settings, id: FIXED_ID });
+      await this.repository.settings.add({ ...settings, id: FIXED_ID });
     }
 
-    await repository.settings.update(FIXED_ID, settings);
+    await this.repository.settings.update(FIXED_ID, settings);
     return {
       ...settings,
       id: FIXED_ID,
@@ -39,4 +41,4 @@ class SettingsService {
   }
 }
 
-export const settingsService = new SettingsService();
+export const settingsService = new SettingsService(repository);

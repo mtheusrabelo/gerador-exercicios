@@ -1,8 +1,10 @@
 import { repository } from '../utils/database';
 
-class ExerciseService {
+export class ExerciseService {
+  constructor(private readonly repository: any) {}
+
   async getAll() {
-    const data = await repository.exercises.toArray();
+    const data = await this.repository.exercises.toArray();
 
     return {
       data,
@@ -11,7 +13,7 @@ class ExerciseService {
   }
 
   async getOne(id: string) {
-    const data = await repository.exercises.get(id);
+    const data = await this.repository.exercises.get(id);
 
     return {
       data,
@@ -20,8 +22,8 @@ class ExerciseService {
   }
 
   async deleteOne(id: string) {
-    const category = await repository.exercises.get(id);
-    await repository.exercises.delete(id);
+    const category = await this.repository.exercises.get(id);
+    await this.repository.exercises.delete(id);
 
     return {
       data: category,
@@ -30,4 +32,4 @@ class ExerciseService {
   }
 }
 
-export const exerciseService = new ExerciseService();
+export const exerciseService = new ExerciseService(repository);
