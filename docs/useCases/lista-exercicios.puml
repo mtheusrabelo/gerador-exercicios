@@ -1,0 +1,21 @@
+@startuml lista-exercicios
+
+actor "Usuário" as usuario
+participant "Navegador" as navegador
+participant "Provedor de exercícios" as provedorExercicios
+participant "Serviço de exercícios" as servicoExercicios
+participant "Armazenamento local" as armazenamentoLocal
+
+alt "Listar Exercícios" 
+    usuario -> navegador: Visita /exercicios?pageSize=25&current=1
+    group "Camada de domínio"
+    navegador -> provedorExercicios: Solicita lista de exercícios
+    provedorExercicios -> servicoExercicios: Obter exercícios para página
+    servicoExercicios -> armazenamentoLocal: Obter exercícios para página
+    armazenamentoLocal --> servicoExercicios: Retorna exercícios
+    servicoExercicios --> provedorExercicios: Retorna exercícios
+    provedorExercicios --> navegador: Retorna exercícios
+    end
+    navegador --> usuario: Renderiza lista de exercícios
+end
+@enduml

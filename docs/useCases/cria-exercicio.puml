@@ -1,0 +1,26 @@
+@startuml cria-exercicio
+
+actor "Usuário" as usuario
+participant "Navegador" as navegador
+participant "Provedor de exercícios" as provedorExercicios
+participant "Serviço de exercícios" as servicoExercicios
+participant "Serviço de AI" as servicoAI
+participant "OpenAI" as openai
+participant "Armazenamento local" as armazenamentoLocal
+
+alt "Listar Exercícios" 
+    usuario -> navegador: Visita /exercises/create
+    group "Camada de domínio"
+    navegador -> provedorExercicios: Solicita novo exercício p/ categoria e descrição
+    provedorExercicios -> servicoExercicios: Solicita geração de exercício
+    servicoExercicios -> servicoAI: Solicita geração de exercício
+    servicoAI -> openai: Solicita geração de exercício
+    openai --> servicoExercicios: Retorna exercício
+    servicoExercicios -> armazenamentoLocal: Armazena exercício
+    armazenamentoLocal --> servicoExercicios: OK
+    servicoExercicios --> provedorExercicios: OK
+    provedorExercicios --> navegador: OK
+    end
+    navegador --> usuario: Redireciona para /exercises
+end
+@enduml
