@@ -27,6 +27,9 @@ export const createExercisesProvider = ({
       const { resource, variables, meta } = params;
       console.log('exercisesProvider.create', params);
 
+      console.log('exerciseProvider.create category');
+      console.log((variables as any)?.category);
+
       const result = await exerciseService.generate(
         (variables as any)?.category,
         (variables as any)?.description,

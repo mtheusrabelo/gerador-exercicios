@@ -2,10 +2,10 @@ import { AutoAwesome, EditNoteOutlined } from '@mui/icons-material';
 import { Alert, Button } from '@mui/material';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import { ptBR } from '@mui/x-data-grid/locales';
+import { useList } from '@refinedev/core';
 import {
   DateField,
   DeleteButton,
-  EditButton,
   List,
   ShowButton,
   useDataGrid,
@@ -15,6 +15,11 @@ import React from 'react';
 export const ExerciseList = () => {
   const { dataGridProps } = useDataGrid({
     dataProviderName: 'exercises',
+  });
+
+  const { data: categoryData } = useList({
+    dataProviderName: 'categories',
+    resource: 'categories',
   });
 
   const columns = React.useMemo<GridColDef[]>(
@@ -27,10 +32,17 @@ export const ExerciseList = () => {
         maxWidth: 200,
       },
       {
-        field: 'categoryName',
+        field: 'categoryId',
         headerAlign: 'left',
         headerName: 'Categoria',
         minWidth: 200,
+        renderCell: function render({ value }) {
+          const category = categoryData?.data?.find(
+            (category) => category.id === value,
+          );
+
+          return <span>{category?.name}</span>;
+        },
       },
       {
         field: 'statement',
@@ -63,7 +75,6 @@ export const ExerciseList = () => {
                 Resolver
               </Button>
               <span>&nbsp;&nbsp;</span>
-              <EditButton hideText recordItemId={row.id} />
               <ShowButton hideText recordItemId={row.id} />
               <DeleteButton hideText recordItemId={row.id} />
             </>

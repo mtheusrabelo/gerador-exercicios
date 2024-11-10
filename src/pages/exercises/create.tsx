@@ -45,7 +45,7 @@ export const ExerciseCreate = () => {
       >
         <Controller
           control={control}
-          name={'category.id'}
+          name={'category'}
           rules={{ required: 'This field is required' }}
           // eslint-disable-next-line
           defaultValue={null as any}

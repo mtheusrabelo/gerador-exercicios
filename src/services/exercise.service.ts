@@ -44,6 +44,9 @@ export class ExerciseService {
   }
 
   async generate(category: CategoryDto, description: string) {
+    console.log('exercise.generate category');
+    console.log(category);
+
     const systemPrompt = `
       Você é um assistent de IA que ajuda o aluno a fixar conteúdo criando exercícios de multipla escolha.
       O enunciado é retorado no campo statement.
@@ -82,6 +85,7 @@ export class ExerciseService {
 
     const id = generateGuid();
     const createdAt = new Date().toISOString();
+
     const newExercise: ExerciseDto = {
       id,
       createdAt,
@@ -95,6 +99,8 @@ export class ExerciseService {
 
     await this.repository.exercises.add(newExercise);
     const data = await this.repository.exercises.get(id);
+
+    console.log('return data', data);
 
     return {
       data,
