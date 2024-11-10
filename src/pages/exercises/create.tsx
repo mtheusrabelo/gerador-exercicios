@@ -12,10 +12,10 @@ import { Controller } from 'react-hook-form';
 
 export const ExerciseCreate = () => {
   const {
-    saveButtonProps,
     refineCore: { formLoading },
     register,
     control,
+    saveButtonProps,
     formState: { errors },
   } = useForm({});
 
@@ -28,9 +28,12 @@ export const ExerciseCreate = () => {
     <Create
       title={<Typography variant="h5">Gerar exercício</Typography>}
       isLoading={formLoading}
-      saveButtonProps={saveButtonProps}
       footerButtons={() => (
-        <Button href="/exercises" variant="contained" endIcon={<AutoAwesome />}>
+        <Button
+          onClick={saveButtonProps.onClick}
+          variant="contained"
+          endIcon={<AutoAwesome />}
+        >
           Gerar com IA
         </Button>
       )}
@@ -51,9 +54,9 @@ export const ExerciseCreate = () => {
               {...categoryAutocompleteProps}
               {...field}
               onChange={(_, value) => {
-                field.onChange(value.id);
+                field.onChange(value);
               }}
-              getOptionLabel={(item) => item.name}
+              getOptionLabel={(item) => item?.name}
               isOptionEqualToValue={(option, value) => {
                 const optionId = option?.id?.toString();
                 const valueId =
