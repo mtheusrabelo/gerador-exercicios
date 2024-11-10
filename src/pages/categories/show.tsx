@@ -16,6 +16,7 @@ export const CategoryShow = () => {
     <Show
       title={<Typography variant="h5">Exibir categoria</Typography>}
       isLoading={isLoading}
+      resource="categories"
     >
       <Stack gap={1}>
         <Typography variant="body1" fontWeight="bold">

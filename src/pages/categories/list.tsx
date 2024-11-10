@@ -1,5 +1,4 @@
 import { AddOutlined } from '@mui/icons-material';
-import { Button } from '@mui/material';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import { ptBR } from '@mui/x-data-grid/locales';
 import {
@@ -71,15 +70,19 @@ export const CategoryList = () => {
 
   return (
     <List
-      headerButtons={[
-        <Button
-          href="/categories/create"
-          variant="contained"
-          endIcon={<AddOutlined />}
-        >
-          Cadastrar
-        </Button>,
-      ]}
+      // headerButtons={[
+      //   <Button
+      //     href="/categories/create"
+      //     variant="contained"
+      //     endIcon={<AddOutlined />}
+      //   >
+      //     Cadastrar
+      //   </Button>,
+      // ]}
+      createButtonProps={{
+        startIcon: null,
+        endIcon: <AddOutlined />,
+      }}
     >
       <DataGrid
         {...dataGridProps}

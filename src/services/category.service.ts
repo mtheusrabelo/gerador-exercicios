@@ -49,7 +49,7 @@ class CategoryService {
 
   async update(id: string, category: CategoryDto) {
     await repository.categories.update(id, category);
-    const data = await repository.categories.get(category.id);
+    const data = await repository.categories.get(id);
 
     return {
       data,

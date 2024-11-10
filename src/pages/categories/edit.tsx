@@ -13,6 +13,7 @@ export const CategoryEdit = () => {
     <Edit
       title={<Typography variant="h5">Editar categoria</Typography>}
       saveButtonProps={saveButtonProps}
+      resource="categories"
     >
       <Box
         component="form"

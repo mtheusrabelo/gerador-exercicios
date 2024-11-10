@@ -27,7 +27,7 @@ export const categoriesProvider: DataProvider = {
     const { resource, id, variables, meta } = params;
     console.log('categoriesProvider.update', params);
 
-    const result = await categoryService.update(id as string, resource as any);
+    const result = await categoryService.update(id as string, variables as any);
     return result as any;
   },
   deleteOne: async (params) => {

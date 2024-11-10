@@ -14,6 +14,7 @@ export const resources: ResourceProps[] = [
       label: 'Início',
       canDelete: false,
       icon: <HomeOutlined />,
+      dataProviderName: 'settings',
     },
   },
   {
@@ -26,6 +27,7 @@ export const resources: ResourceProps[] = [
       canDelete: true,
       label: 'Categorias',
       icon: <CategoryOutlined />,
+      dataProviderName: 'categories',
     },
   },
   {
@@ -38,6 +40,7 @@ export const resources: ResourceProps[] = [
       canDelete: true,
       label: 'Exercícios',
       icon: <QuizOutlined />,
+      dataProviderName: 'exercises',
     },
   },
   {
@@ -47,6 +50,7 @@ export const resources: ResourceProps[] = [
       canDelete: false,
       label: 'Configurações',
       icon: <SettingsOutlined />,
+      dataProviderName: 'settings',
     },
   },
 ];

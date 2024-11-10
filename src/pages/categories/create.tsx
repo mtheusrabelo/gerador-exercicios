@@ -8,6 +8,7 @@ export const CategoryCreate = () => {
     saveButtonProps,
     refineCore: { formLoading },
     register,
+    control,
     formState: { errors },
   } = useForm({});
 
