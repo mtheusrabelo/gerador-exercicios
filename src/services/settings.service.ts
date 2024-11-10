@@ -3,9 +3,16 @@ import { SettingsDto } from '../utils/dtos';
 
 const FIXED_ID = '1';
 
+const BASE_SETTINGS = {
+  openAIModel: 'gpt-4o-mini',
+  openAIKey: '',
+  prompt: `prompt`,
+};
+
 class SettingsService {
   async get() {
-    const data = await repository.settings.get(FIXED_ID);
+    const savedSettings = await repository.settings.get(FIXED_ID);
+    const data = savedSettings || BASE_SETTINGS;
 
     return {
       data,
@@ -14,6 +21,11 @@ class SettingsService {
   }
 
   async save(settings: SettingsDto) {
+    const count = await repository.settings.count();
+    if (count === 0) {
+      await repository.settings.add({ ...settings, id: FIXED_ID });
+    }
+
     await repository.settings.update(FIXED_ID, settings);
     return {
       ...settings,
