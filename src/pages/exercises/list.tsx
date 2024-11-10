@@ -68,7 +68,7 @@ export const ExerciseList = () => {
           return (
             <>
               <Button
-                href="/categories/create"
+                href={`/exercises/show/${row.id}`}
                 variant="outlined"
                 endIcon={<EditNoteOutlined />}
               >
