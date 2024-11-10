@@ -1,16 +1,16 @@
-import { OpenAI } from 'openai';
+import Axios, { AxiosRequestConfig } from 'axios';
 import { SettingsService, settingsService } from './settings.service';
 
-const openai = new OpenAI({
-  apiKey: '',
-  // this SDK should be used in server, so it's safe to allow browser here
-  dangerouslyAllowBrowser: true,
-});
+const axios = Axios.create();
 
 export class AIService {
   constructor(private readonly settingsService: SettingsService) {}
 
-  async createCompletion(systemPrompt: string, userPrompt: string) {
+  async createCompletion(
+    systemPrompt: string,
+    userPrompt: string,
+    responseFormat: object,
+  ) {
     const isValid = await this.settingsService.hasValidSettings();
     if (!isValid) {
       throw new Error('Settings not found');
@@ -19,26 +19,40 @@ export class AIService {
     const settings = await this.settingsService.get();
     const { openAIKey, openAIModel } = settings.data;
 
-    if (openai.apiKey !== openAIKey) {
-      openai.apiKey = openAIKey;
+    const options: AxiosRequestConfig = {
+      method: 'POST',
+      url: 'https://api.openai.com/v1/chat/completions',
+      headers: {
+        Authorization: `Bearer ${openAIKey}`,
+        'content-type': 'application/json',
+      },
+      data: {
+        model: openAIModel,
+        messages: [
+          {
+            role: 'system',
+            content: systemPrompt,
+          },
+          { role: 'user', content: userPrompt },
+        ],
+        response_format: responseFormat,
+      },
+    };
+
+    const response = await axios.request(options);
+    const choices = response.data.choices || [];
+
+    console.log('choices', choices);
+
+    let result = {};
+    try {
+      result = choices[0]?.message?.content;
+    } catch (err) {
+      console.error('error', err);
     }
 
-    const completion = await openai.chat.completions.create({
-      model: openAIModel,
-      response_format: {
-        type: 'json_object',
-      },
-      messages: [
-        { role: 'system', content: systemPrompt },
-        {
-          role: 'user',
-          content: userPrompt,
-        },
-      ],
-    });
-
-    const message = completion.choices[0].message.content;
-    return message;
+    console.log('result', result);
+    return result;
   }
 }
 
