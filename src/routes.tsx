@@ -1,8 +1,9 @@
-import { ErrorComponent, ThemedLayoutV2 } from '@refinedev/mui';
+import { ErrorComponent, ThemedLayoutV2, ThemedTitleV2 } from '@refinedev/mui';
 
 import { NavigateToResource } from '@refinedev/react-router-v6';
 import { Outlet, Route, Routes as RoutesDom } from 'react-router-dom';
 
+import { AutoAwesomeOutlined } from '@mui/icons-material';
 import { Header } from './components/header';
 import {
   CategoryCreate,
@@ -23,7 +24,16 @@ export const Routes = () => (
   <RoutesDom>
     <Route
       element={
-        <ThemedLayoutV2 Header={() => <Header sticky />}>
+        <ThemedLayoutV2
+          Title={({ collapsed }) => (
+            <ThemedTitleV2
+              collapsed={collapsed}
+              icon={<AutoAwesomeOutlined />}
+              text="Atividades Inteligentes"
+            />
+          )}
+          Header={() => <Header sticky />}
+        >
           <Outlet />
         </ThemedLayoutV2>
       }
