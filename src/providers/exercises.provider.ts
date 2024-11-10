@@ -20,10 +20,8 @@ export const createExercisesProvider = ({
       const { resource, id, meta } = params;
       console.log('exercisesProvider.getOne', params);
 
-      return {
-        data: {},
-        total: 0,
-      } as any;
+      const result = await exerciseService.getOne(id as string);
+      return result as any;
     },
     create: async (params) => {
       const { resource, variables, meta } = params;
@@ -48,10 +46,8 @@ export const createExercisesProvider = ({
       const { resource, id, meta } = params;
       console.log('exercisesProvider.deleteOne', params);
 
-      return {
-        data: {},
-        total: 0,
-      } as any;
+      const result = await exerciseService.deleteOne(id as string);
+      return result as any;
     },
     getApiUrl: () => '',
   };

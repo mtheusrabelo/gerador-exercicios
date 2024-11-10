@@ -19,14 +19,14 @@ export class ExerciseService {
   async getAll(pagination?: Pagination) {
     const { offset, limit } = mountDatabasePagination(pagination as any);
 
-    const data = await this.repository.categories
+    const data = await this.repository.exercises
       .orderBy('createdAt')
       .reverse()
       .limit(limit)
       .offset(offset)
       .toArray();
 
-    const total = await this.repository.categories.count();
+    const total = await this.repository.exercises.count();
 
     return {
       data,
@@ -45,7 +45,10 @@ export class ExerciseService {
 
   async generate(category: CategoryDto, description: string) {
     const systemPrompt = `
-      Você cria exercícios de multipla escolha. A primeira alternativa é sempre a correta.
+      Você é um assistent de IA que ajuda o aluno a fixar conteúdo criando exercícios de multipla escolha.
+      O enunciado é retorado no campo statement.
+      Você deve listar 4 alternativas de respostas no campo choices.
+      A alternativa correta deverá ser sempre a primeira.
     `;
 
     const userPrompt = `
@@ -90,8 +93,8 @@ export class ExerciseService {
 
     console.log('newExercise', newExercise);
 
-    await this.repository.categories.add(newExercise);
-    const data = await this.repository.categories.get(id);
+    await this.repository.exercises.add(newExercise);
+    const data = await this.repository.exercises.get(id);
 
     return {
       data,

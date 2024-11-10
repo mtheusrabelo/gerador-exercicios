@@ -1,25 +1,23 @@
-import { Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { useOne, useShow } from '@refinedev/core';
 import {
   DateField,
-  MarkdownField,
   Show,
   TextFieldComponent as TextField,
 } from '@refinedev/mui';
 
 export const ExerciseShow = () => {
-  const { queryResult } = useShow({});
+  const { queryResult } = useShow({
+    dataProviderName: 'exercises',
+  });
 
   const { data, isLoading } = queryResult;
 
   const record = data?.data;
 
-  const { data: categoryData, isLoading: categoryIsLoading } = useOne({
-    resource: 'exercises',
-    id: record?.category?.id || '',
-    queryOptions: {
-      enabled: !!record,
-    },
+  const { data: categoryData } = useOne({
+    dataProviderName: 'categories',
+    id: record?.categoryId || '',
   });
 
   return (
@@ -34,6 +32,11 @@ export const ExerciseShow = () => {
         <TextField value={record?.id} />
 
         <Typography variant="body1" fontWeight="bold">
+          {'Descrição'}
+        </Typography>
+        <TextField value={record?.description} />
+
+        <Typography variant="body1" fontWeight="bold">
           {'Enunciado'}
         </Typography>
         <TextField value={record?.statement} />
@@ -41,16 +44,30 @@ export const ExerciseShow = () => {
         <Typography variant="body1" fontWeight="bold">
           {'Alternativas'}
         </Typography>
-        <MarkdownField value={record?.choices?.join(', ')} />
+
+        {record?.choices?.map((choice: string, index: number) => {
+          return (
+            <Box>
+              <TextField key={index} value={choice} />
+            </Box>
+          );
+        })}
+
+        <Typography variant="body1" fontWeight="bold">
+          {'Alternativa correta'}
+        </Typography>
+
+        <TextField value={record?.choices[0]} />
 
         <Typography variant="body1" fontWeight="bold">
           {'Categoria'}
         </Typography>
-        <TextField value={record?.categoryName} />
+        <TextField value={categoryData?.data?.name} />
+
         <Typography variant="body1" fontWeight="bold">
-          {'CreatedAt'}
+          {'Data de criação'}
         </Typography>
-        <DateField value={record?.createdAt} />
+        <DateField format="DD/MM/YYYY HH:mm:ss" value={record?.createdAt} />
       </Stack>
     </Show>
   );
