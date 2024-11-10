@@ -1,9 +1,9 @@
 import { repository } from '../utils/database';
 import { SettingsDto } from '../utils/dtos';
 
-const FIXED_ID = '1';
+export const SETTINGS_FIXED_ID = '1';
 
-const BASE_SETTINGS = {
+export const BASE_SETTINGS = {
   openAIModel: 'gpt-4o-mini',
   openAIAPIKey: '',
 };
@@ -12,7 +12,7 @@ export class SettingsService {
   constructor(private readonly repository: any) {}
 
   async get() {
-    const savedSettings = await this.repository.settings.get(FIXED_ID);
+    const savedSettings = await this.repository.settings.get(SETTINGS_FIXED_ID);
     const data = savedSettings || BASE_SETTINGS;
 
     return {
@@ -34,13 +34,16 @@ export class SettingsService {
   async save(settings: SettingsDto) {
     const hasSettings = await this.hasSettings();
     if (!hasSettings) {
-      await this.repository.settings.add({ ...settings, id: FIXED_ID });
+      await this.repository.settings.add({
+        ...settings,
+        id: SETTINGS_FIXED_ID,
+      });
     }
 
-    await this.repository.settings.update(FIXED_ID, settings);
+    await this.repository.settings.update(SETTINGS_FIXED_ID, settings);
     return {
       ...settings,
-      id: FIXED_ID,
+      id: SETTINGS_FIXED_ID,
     };
   }
 }
