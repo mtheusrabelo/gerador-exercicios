@@ -1,9 +1,10 @@
 import { DataProvider } from '@refinedev/core';
 import { database } from '../utils/database';
 
-export const categoryProvider: DataProvider = {
-  getList: async ({ resource, pagination, sorters, filters, meta }) => {
-    console.log('categoryProvider.getList');
+export const categoriesProvider: DataProvider = {
+  getList: async (params) => {
+    const { resource, pagination, sorters, filters, meta } = params;
+    console.log('categoriesProvider.getList', params);
 
     // await database.categories.bulkPut([
     //   {
@@ -27,7 +28,9 @@ export const categoryProvider: DataProvider = {
       total: data.length,
     } as any;
   },
-  getOne: async ({ resource, id, meta }) => {
+  getOne: async (params) => {
+    const { resource, id, meta } = params;
+    console.log('categoriesProvider.getOne', params);
     const data = await database.categories.get(id as string);
 
     return {
@@ -35,21 +38,28 @@ export const categoryProvider: DataProvider = {
       total: data ? 1 : 0,
     } as any;
   },
-  create: async ({ resource, variables, meta }) => {
+  create: async (params) => {
+    const { resource, variables, meta } = params;
+    console.log('categoriesProvider.create', params);
+
     return {
       data: {},
       total: 0,
     } as any;
   },
-  update: async ({ resource, variables, meta }) => {
+  update: async (params) => {
+    const { resource, variables, meta } = params;
+    console.log('categoriesProvider.update', params);
+
     return {
       data: {},
       total: 0,
     } as any;
   },
-  deleteOne: async ({ resource, id, meta }) => {
-    console.log('categoryProvider.deleteOne');
-    console.log('id', id);
+  deleteOne: async (params) => {
+    const { resource, id, meta } = params;
+    console.log('categoriesProvider.deleteOne', params);
+
     const category = await database.categories.get(id as string);
     await database.categories.delete(id as string);
 
@@ -59,7 +69,10 @@ export const categoryProvider: DataProvider = {
     } as any;
   },
   getApiUrl: () => '',
-  custom: async ({ url, method, payload, meta }) => {
+  custom: async (params) => {
+    const { url, method, payload, meta } = params;
+    console.log('categoriesProvider.custom', params);
+
     return {
       data: {},
       total: 0,

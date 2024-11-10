@@ -1,7 +1,11 @@
 import { DataProvider } from '@refinedev/core';
+import { database } from '../utils/database';
 
 export const exercisesProvider: DataProvider = {
-  getList: async ({ resource, pagination, sorters, filters, meta }) => {
+  getList: async (params) => {
+    const { resource, pagination, sorters, filters, meta } = params;
+    console.log('exercisesProvider.getList', params);
+
     const data = [
       {
         id: '1',
@@ -26,32 +30,51 @@ export const exercisesProvider: DataProvider = {
       total: data.length,
     } as any;
   },
-  getOne: async ({ resource, id, meta }) => {
+  getOne: async (params) => {
+    const { resource, id, meta } = params;
+    console.log('exercisesProvider.getOne', params);
+    const data = await database.categories.get(id as string);
+
+    return {
+      data,
+      total: data ? 1 : 0,
+    } as any;
+  },
+  create: async (params) => {
+    const { resource, variables, meta } = params;
+    console.log('exercisesProvider.create', params);
+
     return {
       data: {},
       total: 0,
     } as any;
   },
-  create: async ({ resource, variables, meta }) => {
+  update: async (params) => {
+    const { resource, variables, meta } = params;
+    console.log('exercisesProvider.update', params);
+
     return {
       data: {},
       total: 0,
     } as any;
   },
-  update: async ({ resource, variables, meta }) => {
+  deleteOne: async (params) => {
+    const { resource, id, meta } = params;
+    console.log('exercisesProvider.deleteOne', params);
+
+    const category = await database.categories.get(id as string);
+    await database.categories.delete(id as string);
+
     return {
-      data: {},
-      total: 0,
-    } as any;
-  },
-  deleteOne: async ({ resource, id, meta }) => {
-    return {
-      data: {},
-      total: 0,
+      data: category,
+      total: category ? 1 : 0,
     } as any;
   },
   getApiUrl: () => '',
-  custom: async ({ url, method, payload, meta }) => {
+  custom: async (params) => {
+    const { url, method, payload, meta } = params;
+    console.log('exercisesProvider.custom', params);
+
     return {
       data: {},
       total: 0,
