@@ -11,13 +11,17 @@ const AppTitle = styled.div`
   font-size: 2rem;
 `;
 
+const AppSubtitle = styled.div`
+  font-size: 1.1rem;
+`;
+
 type ItemProps = {
   Icon: React.FC;
-  title: string;
-  description: string;
+  Title: React.FC;
+  Description: React.FC;
 };
 
-const Item = ({ Icon, title, description }: ItemProps) => {
+const Item = ({ Icon, Title, Description }: ItemProps) => {
   return (
     <Box
       sx={{
@@ -35,14 +39,14 @@ const Item = ({ Icon, title, description }: ItemProps) => {
           fontWeight: 600,
         }}
       >
-        {title}
+        <Title />
       </Box>
       <Box
         sx={{
           fontSize: '0.875rem',
         }}
       >
-        {description}
+        <Description />
       </Box>
     </Box>
   );
@@ -70,12 +74,14 @@ export const DashboadList = () => {
         <Box
           sx={{
             display: 'flex',
-            height: 120,
+            height: 150,
+            flexDirection: 'column',
             justifyContent: 'left',
             alignItems: 'center',
           }}
         >
           <AppTitle>Gerador de Exercícios</AppTitle>
+          <AppSubtitle>Desenvolvido por Matheus Rabelo</AppSubtitle>
         </Box>
         <Box
           sx={{
@@ -93,10 +99,20 @@ export const DashboadList = () => {
                 }}
               />
             )}
-            title={'Confiável'}
-            description={
-              'Essa aplicação é de código aberto, distribuída pela Cloudflare e fica inteiramente em seu navegador.'
-            }
+            Title={() => <span>Confiável</span>}
+            Description={() => (
+              <span>
+                Essa aplicação é de código aberto (
+                <a
+                  style={{ color: 'black' }}
+                  href="https://github.com/mtheusrabelo/gerador-exercicios"
+                >
+                  aqui
+                </a>
+                ), distribuída pela Cloudflare e fica inteiramente em seu
+                navegador.
+              </span>
+            )}
           />
           <Item
             Icon={() => (
@@ -107,10 +123,13 @@ export const DashboadList = () => {
                 }}
               />
             )}
-            title={'Privado'}
-            description={
-              'Você está no controle. Todos os seus dados são armazenados em seu dispositivo.'
-            }
+            Title={() => <span>Privado</span>}
+            Description={() => (
+              <span>
+                Você está no controle. Todos os seus dados são armazenados em
+                seu dispositivo.
+              </span>
+            )}
           />
           <Item
             Icon={() => (
@@ -121,10 +140,13 @@ export const DashboadList = () => {
                 }}
               />
             )}
-            title={'Transparente'}
-            description={
-              'A política de privacidade e os termos de uso da Open AI se aplicam, pois ela é responsável por processar suas solicitações.'
-            }
+            Title={() => <span>Transparente</span>}
+            Description={() => (
+              <span>
+                A política de privacidade e os termos de uso da OpenAI se
+                aplicam, pois ela é responsável pela geração dos exercícios.
+              </span>
+            )}
           />
         </Box>
       </Box>
