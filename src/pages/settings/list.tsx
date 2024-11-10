@@ -11,7 +11,12 @@ export const SettingsList = () => {
   return (
     <List
       title="Configurações"
-      headerButtons={() => <Button variant="contained">Salvar</Button>}
+      headerButtons={() => (
+        <>
+          <Button variant="outlined">Limpar dados</Button>
+          <Button variant="contained">Salvar</Button>
+        </>
+      )}
     >
       <Box
         component="form"
