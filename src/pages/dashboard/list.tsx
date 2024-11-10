@@ -121,7 +121,11 @@ export const DashboadList = () => {
               <span>
                 Essa aplicação é de{' '}
                 <a
-                  style={{ color: 'black' }}
+                  style={{
+                    fontWeight: 'bold',
+                    color: 'grey',
+                    textDecoration: 'underline',
+                  }}
                   href="https://github.com/mtheusrabelo/gerador-exercicios"
                 >
                   código aberto
@@ -162,14 +166,22 @@ export const DashboadList = () => {
               <span>
                 A{' '}
                 <a
-                  style={{ color: 'black' }}
+                  style={{
+                    fontWeight: 'bold',
+                    color: 'grey',
+                    textDecoration: 'underline',
+                  }}
                   href="https://openai.com/pt-BR/policies/row-privacy-policy/"
                 >
                   política de privacidade
                 </a>{' '}
                 e os{' '}
                 <a
-                  style={{ color: 'black' }}
+                  style={{
+                    fontWeight: 'bold',
+                    color: 'grey',
+                    textDecoration: 'underline',
+                  }}
                   href="https://openai.com/pt-BR/policies/terms-of-use/"
                 >
                   termos de uso
