@@ -27,6 +27,15 @@ export class SettingsService {
     return count > 0;
   }
 
+  async hasValidSettings() {
+    const { data: settings } = await this.get();
+    return (
+      settings.openAIKey !== '' &&
+      settings.openAIModel !== '' &&
+      settings.prompt !== ''
+    );
+  }
+
   async save(settings: SettingsDto) {
     const hasSettings = await this.hasSettings();
     if (!hasSettings) {
