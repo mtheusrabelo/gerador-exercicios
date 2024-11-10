@@ -102,14 +102,14 @@ export const DashboadList = () => {
             Title={() => <span>Confiável</span>}
             Description={() => (
               <span>
-                Essa aplicação é de código aberto (
+                Essa aplicação é de{' '}
                 <a
                   style={{ color: 'black' }}
                   href="https://github.com/mtheusrabelo/gerador-exercicios"
                 >
-                  aqui
+                  código aberto
                 </a>
-                ), distribuída pela Cloudflare e fica inteiramente em seu
+                , distribuída pela Cloudflare e fica inteiramente em seu
                 navegador.
               </span>
             )}
@@ -143,8 +143,22 @@ export const DashboadList = () => {
             Title={() => <span>Transparente</span>}
             Description={() => (
               <span>
-                A política de privacidade e os termos de uso da OpenAI se
-                aplicam, pois ela é responsável pela geração dos exercícios.
+                A{' '}
+                <a
+                  style={{ color: 'black' }}
+                  href="https://openai.com/pt-BR/policies/row-privacy-policy/"
+                >
+                  política de privacidade
+                </a>{' '}
+                e os{' '}
+                <a
+                  style={{ color: 'black' }}
+                  href="https://openai.com/pt-BR/policies/terms-of-use/"
+                >
+                  termos de uso
+                </a>{' '}
+                da OpenAI se aplicam, pois ela é responsável pela geração dos
+                exercícios.
               </span>
             )}
           />
