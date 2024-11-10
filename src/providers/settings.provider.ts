@@ -1,5 +1,4 @@
 import { DataProvider } from '@refinedev/core';
-import { database } from '../utils/database';
 
 export const settingsProvider: DataProvider = {
   getList: async (params) => {
@@ -44,12 +43,9 @@ export const settingsProvider: DataProvider = {
     const { resource, id, meta } = params;
     console.log('settingsProvider.deleteOne', params);
 
-    const category = await database.categories.get(id as string);
-    await database.categories.delete(id as string);
-
     return {
-      data: category,
-      total: category ? 1 : 0,
+      data: {},
+      total: 0,
     } as any;
   },
   getApiUrl: () => '',

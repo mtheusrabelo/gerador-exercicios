@@ -1,5 +1,4 @@
 import { DataProvider } from '@refinedev/core';
-import { database } from '../utils/database';
 
 export const exercisesProvider: DataProvider = {
   getList: async (params) => {
@@ -33,11 +32,10 @@ export const exercisesProvider: DataProvider = {
   getOne: async (params) => {
     const { resource, id, meta } = params;
     console.log('exercisesProvider.getOne', params);
-    const data = await database.categories.get(id as string);
 
     return {
-      data,
-      total: data ? 1 : 0,
+      data: {},
+      total: 0,
     } as any;
   },
   create: async (params) => {
@@ -62,22 +60,10 @@ export const exercisesProvider: DataProvider = {
     const { resource, id, meta } = params;
     console.log('exercisesProvider.deleteOne', params);
 
-    const category = await database.categories.get(id as string);
-    await database.categories.delete(id as string);
-
-    return {
-      data: category,
-      total: category ? 1 : 0,
-    } as any;
-  },
-  getApiUrl: () => '',
-  custom: async (params) => {
-    const { url, method, payload, meta } = params;
-    console.log('exercisesProvider.custom', params);
-
     return {
       data: {},
       total: 0,
     } as any;
   },
+  getApiUrl: () => '',
 };
