@@ -1,13 +1,52 @@
 import { DeleteForeverOutlined, SaveAltOutlined } from '@mui/icons-material';
 import { Box, Button, TextField } from '@mui/material';
+import { useCreate, useList } from '@refinedev/core';
 import { List } from '@refinedev/mui';
 import { useForm } from '@refinedev/react-hook-form';
+import { useState } from 'react';
 
 export const SettingsList = () => {
   const {
     register,
     formState: { errors },
   } = useForm({});
+
+  const { mutate } = useCreate();
+
+  const { data } = useList({
+    dataProviderName: 'settings',
+    resource: 'settings',
+  });
+
+  const currentSettings = data?.data as any;
+
+  const [openAIModel, setOpenAIModel] = useState(currentSettings?.openAIModel);
+  const [openAIAPIKey, setOpenAIAPIKey] = useState(
+    currentSettings?.openAIAPIKey,
+  );
+  const [prompt, setPrompt] = useState(currentSettings?.prompt);
+
+  const saveSettings = () => {
+    console.log('save');
+    mutate(
+      {
+        resource: 'settings',
+        values: {
+          openAIModel,
+          openAIAPIKey,
+          prompt,
+        },
+      },
+      {
+        onSuccess: () => {
+          console.log('success');
+        },
+        onError: () => {
+          console.log('error');
+        },
+      },
+    );
+  };
 
   return (
     <List
@@ -17,7 +56,11 @@ export const SettingsList = () => {
           <Button variant="outlined" endIcon={<DeleteForeverOutlined />}>
             Limpar dados
           </Button>
-          <Button variant="contained" endIcon={<SaveAltOutlined />}>
+          <Button
+            onClick={() => saveSettings()}
+            variant="contained"
+            endIcon={<SaveAltOutlined />}
+          >
             Salvar
           </Button>
         </>
@@ -32,6 +75,8 @@ export const SettingsList = () => {
           helperText={(errors as any)?.openAIModel?.message}
           margin="normal"
           fullWidth
+          defaultValue={openAIModel}
+          onChange={(e) => setOpenAIModel(e.target.value)}
           InputLabelProps={{ shrink: true }}
           type="text"
           label={'Modelo da OpenAI'}
@@ -39,17 +84,19 @@ export const SettingsList = () => {
           autoComplete="off"
         />
         <TextField
-          {...register('openAIKey', {
+          {...register('openAIAPIKey', {
             required: 'This field is required',
           })}
-          error={!!(errors as any)?.openAIKey}
-          helperText={(errors as any)?.openAIKey?.message}
+          error={!!(errors as any)?.openAIAPIKey}
+          helperText={(errors as any)?.openAIAPIKey?.message}
           margin="normal"
           fullWidth
+          defaultValue={openAIAPIKey}
+          onChange={(e) => setOpenAIAPIKey(e.target.value)}
           InputLabelProps={{ shrink: true }}
           type="password"
           label={'API Key da OpenAI'}
-          name="openAIKey"
+          name="openAIAPIKey"
           autoComplete="new-password"
         />
         <TextField
@@ -60,6 +107,8 @@ export const SettingsList = () => {
           helperText={(errors as any)?.prompt?.message}
           margin="normal"
           fullWidth
+          defaultValue={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
           InputLabelProps={{ shrink: true }}
           multiline
           label={'Prompt'}
