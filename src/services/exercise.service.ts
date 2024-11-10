@@ -22,8 +22,8 @@ export class ExerciseService {
     const data = await this.repository.exercises
       .orderBy('createdAt')
       .reverse()
-      .limit(limit)
       .offset(offset)
+      .limit(limit)
       .toArray();
 
     const total = await this.repository.exercises.count();

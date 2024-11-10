@@ -13,8 +13,8 @@ export class CategoryService {
     const data = await this.repository.categories
       .orderBy('createdAt')
       .reverse()
-      .limit(limit)
       .offset(offset)
+      .limit(limit)
       .toArray();
 
     const total = await this.repository.categories.count();
