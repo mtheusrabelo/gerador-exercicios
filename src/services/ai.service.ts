@@ -1,10 +1,11 @@
-import Axios, { AxiosRequestConfig } from 'axios';
+import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { SettingsService, settingsService } from './settings.service';
 
-const axios = Axios.create();
-
 export class AIService {
-  constructor(private readonly settingsService: SettingsService) {}
+  constructor(
+    private readonly settingsService: SettingsService,
+    private readonly axios: AxiosInstance,
+  ) {}
 
   async createCompletion(
     systemPrompt: string,
@@ -39,7 +40,7 @@ export class AIService {
       },
     };
 
-    const response = await axios.request(options);
+    const response = await this.axios.request(options);
     const choices = response.data.choices || [];
 
     let result = {};
@@ -53,4 +54,5 @@ export class AIService {
   }
 }
 
-export const aiService = new AIService(settingsService);
+const axios = Axios.create();
+export const aiService = new AIService(settingsService, axios);
