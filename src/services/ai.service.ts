@@ -42,8 +42,6 @@ export class AIService {
     const response = await axios.request(options);
     const choices = response.data.choices || [];
 
-    console.log('choices', choices);
-
     let result = {};
     try {
       result = JSON.parse(choices[0]?.message?.content);
@@ -51,7 +49,6 @@ export class AIService {
       console.error('error', err);
     }
 
-    console.log('result', result);
     return result;
   }
 }

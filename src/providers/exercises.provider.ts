@@ -11,24 +11,18 @@ export const createExercisesProvider = ({
   const exercisesProvider: DataProvider = {
     getList: async (params) => {
       const { resource, pagination, sorters, filters, meta } = params;
-      console.log('exercisesProvider.getList', params);
 
       const result = await exerciseService.getAll(pagination);
       return result as any;
     },
     getOne: async (params) => {
       const { resource, id, meta } = params;
-      console.log('exercisesProvider.getOne', params);
 
       const result = await exerciseService.getOne(id as string);
       return result as any;
     },
     create: async (params) => {
       const { resource, variables, meta } = params;
-      console.log('exercisesProvider.create', params);
-
-      console.log('exerciseProvider.create category');
-      console.log((variables as any)?.category);
 
       const result = await exerciseService.generate(
         (variables as any)?.category,
@@ -38,7 +32,6 @@ export const createExercisesProvider = ({
     },
     update: async (params) => {
       const { resource, variables, meta } = params;
-      console.log('exercisesProvider.update', params);
 
       return {
         data: {},
@@ -47,7 +40,6 @@ export const createExercisesProvider = ({
     },
     deleteOne: async (params) => {
       const { resource, id, meta } = params;
-      console.log('exercisesProvider.deleteOne', params);
 
       const result = await exerciseService.deleteOne(id as string);
       return result as any;
