@@ -1,26 +1,14 @@
 import { Dexie, type EntityTable } from 'dexie';
+import { CategoryDto, ExerciseDto, SettingsDto } from './dtos';
 
-export type Category = {
-  id: string;
-  name: string;
-  description: string;
-  createdAt: string;
+export const repository = new Dexie('Database') as Dexie & {
+  categories: EntityTable<CategoryDto, 'id'>;
+  exercises: EntityTable<ExerciseDto, 'id'>;
+  settings: EntityTable<SettingsDto, 'id'>;
 };
 
-export type Exercise = {
-  id: string;
-  title: string;
-  statement: string;
-  categoryId: string;
-  createdAt: string;
-};
-
-export const database = new Dexie('Database') as Dexie & {
-  categories: EntityTable<Category, 'id'>;
-  exercises: EntityTable<Exercise, 'id'>;
-};
-
-database.version(1).stores({
+repository.version(1).stores({
   categories: 'id, name, description, createdAt',
   exercises: 'id, title, statement, categoryId, createdAt',
+  settings: 'id, openAIModel, openAIKey, prompt',
 });
