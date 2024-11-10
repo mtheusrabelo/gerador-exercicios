@@ -38,7 +38,6 @@ export class CategoryService {
     const id = generateGuid();
     const createdAt = new Date().toISOString();
     const newCategory = { ...category, id, createdAt };
-    console.log('service newCategory', newCategory);
 
     await this.repository.categories.add(newCategory);
     const data = await this.repository.categories.get(id);
