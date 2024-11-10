@@ -34,7 +34,6 @@ export const resources: ResourceProps[] = [
     name: 'exercises',
     list: '/exercises',
     create: '/exercises/create',
-    edit: '/exercises/edit/:id',
     show: '/exercises/show/:id',
     meta: {
       canDelete: true,
