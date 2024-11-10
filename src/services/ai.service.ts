@@ -17,13 +17,13 @@ export class AIService {
     }
 
     const settings = await this.settingsService.get();
-    const { openAIKey, openAIModel } = settings.data;
+    const { openAIAPIKey, openAIModel } = settings.data;
 
     const options: AxiosRequestConfig = {
       method: 'POST',
       url: 'https://api.openai.com/v1/chat/completions',
       headers: {
-        Authorization: `Bearer ${openAIKey}`,
+        Authorization: `Bearer ${openAIAPIKey}`,
         'content-type': 'application/json',
       },
       data: {
@@ -46,7 +46,7 @@ export class AIService {
 
     let result = {};
     try {
-      result = choices[0]?.message?.content;
+      result = JSON.parse(choices[0]?.message?.content);
     } catch (err) {
       console.error('error', err);
     }
