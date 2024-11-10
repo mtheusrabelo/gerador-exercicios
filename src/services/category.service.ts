@@ -1,14 +1,25 @@
+import { Pagination } from '@refinedev/core';
 import { repository } from '../utils/database';
 import { CategoryDto } from '../utils/dtos';
 import { generateGuid } from '../utils/generateGuid';
+import { mountDatabasePagination } from '../utils/pagination';
 
 class CategoryService {
-  async getAll() {
-    const data = await repository.categories.toArray();
+  async getAll(pagination?: Pagination) {
+    const { offset, limit } = mountDatabasePagination(pagination as any);
+
+    const data = await repository.categories
+      .orderBy('createdAt')
+      .reverse()
+      .limit(limit)
+      .offset(offset)
+      .toArray();
+
+    const total = await repository.categories.count();
 
     return {
       data,
-      total: data.length,
+      total,
     };
   }
 
@@ -24,8 +35,10 @@ class CategoryService {
   async create(category: CategoryDto) {
     const id = generateGuid();
     const createdAt = new Date().toISOString();
+    const newCategory = { ...category, id, createdAt };
+    console.log('service newCategory', newCategory);
 
-    await repository.categories.add({ ...category, id, createdAt });
+    await repository.categories.add(newCategory);
     const data = await repository.categories.get(id);
 
     return {

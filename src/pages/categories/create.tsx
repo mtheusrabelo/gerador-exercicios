@@ -18,7 +18,7 @@ export const CategoryCreate = () => {
       saveButtonProps={saveButtonProps}
       footerButtons={() => (
         <Button
-          href="/categories/create"
+          onClick={saveButtonProps.onClick}
           variant="contained"
           endIcon={<SaveAltOutlined />}
         >

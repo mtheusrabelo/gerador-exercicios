@@ -6,7 +6,7 @@ export const categoriesProvider: DataProvider = {
     const { resource, pagination, sorters, filters, meta } = params;
     console.log('categoriesProvider.getList', params);
 
-    const result = await categoryService.getAll();
+    const result = await categoryService.getAll(pagination);
     return result as any;
   },
   getOne: async (params) => {
@@ -20,7 +20,7 @@ export const categoriesProvider: DataProvider = {
     const { resource, variables, meta } = params;
     console.log('categoriesProvider.create', params);
 
-    const result = await categoryService.create(resource as any);
+    const result = await categoryService.create(variables as any);
     return result as any;
   },
   update: async (params) => {
