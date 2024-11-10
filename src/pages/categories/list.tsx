@@ -14,6 +14,7 @@ import React from 'react';
 export const CategoryList = () => {
   const { dataGridProps } = useDataGrid({
     dataProviderName: 'categories',
+    resource: 'categories',
   });
 
   const columns = React.useMemo<GridColDef[]>(
@@ -70,15 +71,6 @@ export const CategoryList = () => {
 
   return (
     <List
-      // headerButtons={[
-      //   <Button
-      //     href="/categories/create"
-      //     variant="contained"
-      //     endIcon={<AddOutlined />}
-      //   >
-      //     Cadastrar
-      //   </Button>,
-      // ]}
       createButtonProps={{
         startIcon: null,
         endIcon: <AddOutlined />,
