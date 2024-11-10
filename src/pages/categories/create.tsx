@@ -1,3 +1,4 @@
+import { SaveAltOutlined } from '@mui/icons-material';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { Create } from '@refinedev/mui';
 import { useForm } from '@refinedev/react-hook-form';
@@ -16,8 +17,12 @@ export const CategoryCreate = () => {
       isLoading={formLoading}
       saveButtonProps={saveButtonProps}
       footerButtons={() => (
-        <Button href="/categories/create" variant="contained">
-          Cadastrar
+        <Button
+          href="/categories/create"
+          variant="contained"
+          endIcon={<SaveAltOutlined />}
+        >
+          Salvar
         </Button>
       )}
     >

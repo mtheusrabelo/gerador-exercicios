@@ -1,3 +1,4 @@
+import { DeleteForeverOutlined, SaveAltOutlined } from '@mui/icons-material';
 import { Box, Button, TextField } from '@mui/material';
 import { List } from '@refinedev/mui';
 import { useForm } from '@refinedev/react-hook-form';
@@ -13,8 +14,12 @@ export const SettingsList = () => {
       title="Configurações"
       headerButtons={() => (
         <>
-          <Button variant="outlined">Limpar dados</Button>
-          <Button variant="contained">Salvar</Button>
+          <Button variant="outlined" endIcon={<DeleteForeverOutlined />}>
+            Limpar dados
+          </Button>
+          <Button variant="contained" endIcon={<SaveAltOutlined />}>
+            Salvar
+          </Button>
         </>
       )}
     >
