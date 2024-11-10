@@ -89,6 +89,8 @@ export const ExerciseShow = () => {
 
   return (
     <Show
+      headerButtons={[]}
+      goBack={false}
       title={<Typography variant="h5">Resolver exercício</Typography>}
       isLoading={isLoading}
     >
