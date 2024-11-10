@@ -1,6 +1,6 @@
 import { DeleteForeverOutlined, SaveAltOutlined } from '@mui/icons-material';
 import { Box, Button, TextField } from '@mui/material';
-import { useCreate, useList } from '@refinedev/core';
+import { useList } from '@refinedev/core';
 import { List } from '@refinedev/mui';
 import { useForm } from '@refinedev/react-hook-form';
 import { useEffect } from 'react';
@@ -10,7 +10,7 @@ import { SettingsDto } from '../../utils/dtos';
 export const SettingsList = () => {
   const {
     register,
-    getValues,
+    saveButtonProps,
     setValue,
     formState: { errors },
   } = useForm({
@@ -20,8 +20,6 @@ export const SettingsList = () => {
       prompt: '',
     },
   });
-
-  const { mutate } = useCreate();
 
   const { data } = useList({
     dataProviderName: 'settings',
@@ -38,30 +36,6 @@ export const SettingsList = () => {
     setValue('prompt', prompt);
   }, [currentSettings, setValue]);
 
-  const saveSettings = () => {
-    console.log('save');
-    const { openAIModel, openAIAPIKey, prompt } = getValues();
-
-    mutate(
-      {
-        resource: 'settings',
-        values: {
-          openAIModel,
-          openAIAPIKey,
-          prompt,
-        },
-      },
-      {
-        onSuccess: () => {
-          console.log('success');
-        },
-        onError: () => {
-          console.log('error');
-        },
-      },
-    );
-  };
-
   return (
     <List
       title="Configurações"
@@ -75,7 +49,8 @@ export const SettingsList = () => {
             Limpar todos os dados
           </Button>
           <Button
-            onClick={() => saveSettings()}
+            onClick={saveButtonProps.onClick}
+            disabled={saveButtonProps.disabled}
             variant="contained"
             endIcon={<SaveAltOutlined />}
           >
