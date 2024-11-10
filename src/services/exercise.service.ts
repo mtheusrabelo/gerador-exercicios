@@ -1,20 +1,36 @@
+import { Pagination } from '@refinedev/core';
 import { repository } from '../utils/database';
+import { CategoryDto, ExerciseDto } from '../utils/dtos';
+import { generateGuid } from '../utils/generateGuid';
+import { mountDatabasePagination } from '../utils/pagination';
 import { aiService, AIService } from './ai.service';
-import { SettingsService, settingsService } from './settings.service';
+
+type GeneratedExercise = {
+  statement: string;
+  choices: string[];
+};
 
 export class ExerciseService {
   constructor(
     private readonly repository: any,
-    private readonly settingsService: SettingsService,
     private readonly aiService: AIService,
   ) {}
 
-  async getAll() {
-    const data = await this.repository.exercises.toArray();
+  async getAll(pagination?: Pagination) {
+    const { offset, limit } = mountDatabasePagination(pagination as any);
+
+    const data = await this.repository.categories
+      .orderBy('createdAt')
+      .reverse()
+      .limit(limit)
+      .offset(offset)
+      .toArray();
+
+    const total = await this.repository.categories.count();
 
     return {
       data,
-      total: data.length,
+      total,
     };
   }
 
@@ -27,10 +43,20 @@ export class ExerciseService {
     };
   }
 
-  async generate() {
-    const exercise = await this.aiService.createCompletion(
-      'Você cria exercícios de multipla escolha. A primeira alternativa é sempre a correta.',
-      'Tema: Eleições dos EUA',
+  async generate(category: CategoryDto, description: string) {
+    const systemPrompt = `
+      Você cria exercícios de multipla escolha. A primeira alternativa é sempre a correta.
+    `;
+
+    const userPrompt = `
+      ${category?.name && `Tema: ${category.name}`}
+      ${category?.description && `Descrição do tema: ${category.description}`}
+      ${description && `Descrição do exercício: ${description}`}
+    `;
+
+    const exercise = (await this.aiService.createCompletion(
+      systemPrompt,
+      userPrompt,
       {
         type: 'json_schema',
         json_schema: {
@@ -47,29 +73,41 @@ export class ExerciseService {
           strict: true,
         },
       },
-    );
+    )) as GeneratedExercise;
 
     console.log('completion', exercise);
 
+    const id = generateGuid();
+    const createdAt = new Date().toISOString();
+    const newExercise: ExerciseDto = {
+      id,
+      createdAt,
+      description,
+      categoryId: category.id as string,
+      choices: exercise.choices as string[],
+      statement: exercise.statement as string,
+    };
+
+    console.log('newExercise', newExercise);
+
+    await this.repository.categories.add(newExercise);
+    const data = await this.repository.categories.get(id);
+
     return {
-      data: {},
-      total: 0,
+      data,
+      total: data ? 1 : 0,
     };
   }
 
   async deleteOne(id: string) {
-    const category = await this.repository.exercises.get(id);
+    const exercise = await this.repository.exercises.get(id);
     await this.repository.exercises.delete(id);
 
     return {
-      data: category,
-      total: category ? 1 : 0,
+      data: exercise,
+      total: exercise ? 1 : 0,
     };
   }
 }
 
-export const exerciseService = new ExerciseService(
-  repository,
-  settingsService,
-  aiService,
-);
+export const exerciseService = new ExerciseService(repository, aiService);

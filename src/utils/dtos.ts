@@ -7,7 +7,7 @@ export type CategoryDto = {
 
 export type ExerciseDto = {
   id?: string;
-  title: string;
+  description: string;
   statement: string;
   choices: string[];
   categoryId: string;

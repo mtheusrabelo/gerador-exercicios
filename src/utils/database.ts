@@ -14,6 +14,6 @@ export const cleanDatabase = () => {
 
 repository.version(1).stores({
   categories: 'id, name, description, createdAt',
-  exercises: 'id, title, statement, choices, categoryId, createdAt',
+  exercises: 'id, description, statement, choices, categoryId, createdAt',
   settings: 'id, openAIModel, openAIKey, prompt',
 });
