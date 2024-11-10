@@ -28,20 +28,28 @@ export class ExerciseService {
   }
 
   async generate() {
-    const isValid = await this.settingsService.hasValidSettings();
-    if (!isValid) {
-      throw new Error('Settings not found');
-    }
-
-    const settings = await this.settingsService.get();
-    const { prompt } = settings.data;
-
-    const completion = await this.aiService.createCompletion(
-      prompt,
-      'say hello world',
+    const exercise = await this.aiService.createCompletion(
+      'Você cria exercícios de multipla escolha. A primeira alternativa é sempre a correta.',
+      'Tema: Eleições dos EUA',
+      {
+        type: 'json_schema',
+        json_schema: {
+          name: 'exercise',
+          schema: {
+            type: 'object',
+            properties: {
+              choices: { type: 'array', items: { type: 'string' } },
+              statement: { type: 'string' },
+            },
+            required: ['statement', 'choices'],
+            additionalProperties: false,
+          },
+          strict: true,
+        },
+      },
     );
 
-    console.log('completion', completion);
+    console.log('completion', exercise);
 
     return {
       data: {},

@@ -24,8 +24,6 @@ export const ExerciseCreate = () => {
     resource: 'categories',
   });
 
-  console.log('categoryAutocompleteProps', categoryAutocompleteProps);
-
   return (
     <Create
       title={<Typography variant="h5">Gerar exercício</Typography>}
