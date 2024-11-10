@@ -3,13 +3,7 @@ import { Alert, Button } from '@mui/material';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import { ptBR } from '@mui/x-data-grid/locales';
 import { useList } from '@refinedev/core';
-import {
-  DateField,
-  DeleteButton,
-  List,
-  ShowButton,
-  useDataGrid,
-} from '@refinedev/mui';
+import { DateField, DeleteButton, List, useDataGrid } from '@refinedev/mui';
 import React from 'react';
 
 export const ExerciseList = () => {
@@ -19,7 +13,6 @@ export const ExerciseList = () => {
 
   const { data: categoryData } = useList({
     dataProviderName: 'categories',
-    resource: 'categories',
   });
 
   const columns = React.useMemo<GridColDef[]>(
@@ -37,8 +30,9 @@ export const ExerciseList = () => {
         headerName: 'Categoria',
         minWidth: 200,
         renderCell: function render({ value }) {
-          const category = categoryData?.data?.find(
-            (category) => category.id === value,
+          const categories = (categoryData as any)?.data || [];
+          const category = categories.find(
+            (category: any) => category.id === value,
           );
 
           return <span>{category?.name}</span>;
@@ -75,17 +69,16 @@ export const ExerciseList = () => {
                 Resolver
               </Button>
               <span>&nbsp;&nbsp;</span>
-              <ShowButton hideText recordItemId={row.id} />
               <DeleteButton hideText recordItemId={row.id} />
             </>
           );
         },
         align: 'center',
         headerAlign: 'left',
-        minWidth: 300,
+        minWidth: 200,
       },
     ],
-    [],
+    [categoryData],
   );
 
   const hasAPIKey = true;
