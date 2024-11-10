@@ -20,8 +20,11 @@ export const ExerciseCreate = () => {
   } = useForm({});
 
   const { autocompleteProps: categoryAutocompleteProps } = useAutocomplete({
-    resource: 'exercises',
+    dataProviderName: 'categories',
+    resource: 'categories',
   });
+
+  console.log('categoryAutocompleteProps', categoryAutocompleteProps);
 
   return (
     <Create
@@ -52,18 +55,7 @@ export const ExerciseCreate = () => {
               onChange={(_, value) => {
                 field.onChange(value.id);
               }}
-              getOptionLabel={(item) => {
-                return (
-                  categoryAutocompleteProps?.options?.find((p) => {
-                    const itemId =
-                      typeof item === 'object'
-                        ? item?.id?.toString()
-                        : item?.toString();
-                    const pId = p?.id?.toString();
-                    return itemId === pId;
-                  })?.title ?? ''
-                );
-              }}
+              getOptionLabel={(item) => item.name}
               isOptionEqualToValue={(option, value) => {
                 const optionId = option?.id?.toString();
                 const valueId =
