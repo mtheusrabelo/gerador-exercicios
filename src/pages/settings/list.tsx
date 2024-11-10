@@ -3,14 +3,23 @@ import { Box, Button, TextField } from '@mui/material';
 import { useCreate, useList } from '@refinedev/core';
 import { List } from '@refinedev/mui';
 import { useForm } from '@refinedev/react-hook-form';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { cleanDatabase } from '../../utils/database';
+import { SettingsDto } from '../../utils/dtos';
 
 export const SettingsList = () => {
   const {
     register,
+    getValues,
+    setValue,
     formState: { errors },
-  } = useForm({});
+  } = useForm({
+    defaultValues: {
+      openAIModel: '',
+      openAIAPIKey: '',
+      prompt: '',
+    },
+  });
 
   const { mutate } = useCreate();
 
@@ -19,16 +28,23 @@ export const SettingsList = () => {
     resource: 'settings',
   });
 
-  const currentSettings = data?.data as any;
+  const currentSettings = data?.data as any as SettingsDto;
 
-  const [openAIModel, setOpenAIModel] = useState(currentSettings?.openAIModel);
-  const [openAIAPIKey, setOpenAIAPIKey] = useState(
-    currentSettings?.openAIAPIKey,
-  );
-  const [prompt, setPrompt] = useState(currentSettings?.prompt);
+  useEffect(() => {
+    if (!currentSettings) return;
+
+    const { openAIModel, openAIAPIKey, prompt } = currentSettings;
+
+    setValue('openAIModel', openAIModel);
+    setValue('openAIAPIKey', openAIAPIKey);
+    setValue('prompt', prompt);
+    // update register value
+  }, [currentSettings]);
 
   const saveSettings = () => {
     console.log('save');
+    const { openAIModel, openAIAPIKey, prompt } = getValues();
+
     mutate(
       {
         resource: 'settings',
@@ -71,7 +87,7 @@ export const SettingsList = () => {
         </>
       )}
     >
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Box component={'form'} sx={{ display: 'flex', flexDirection: 'column' }}>
         <TextField
           {...register('openAIModel', {
             required: 'This field is required',
@@ -80,8 +96,6 @@ export const SettingsList = () => {
           helperText={(errors as any)?.openAIModel?.message}
           margin="normal"
           fullWidth
-          defaultValue={openAIModel}
-          onChange={(e) => setOpenAIModel(e.target.value)}
           InputLabelProps={{ shrink: true }}
           type="text"
           label={'Modelo da OpenAI'}
@@ -96,8 +110,6 @@ export const SettingsList = () => {
           helperText={(errors as any)?.openAIAPIKey?.message}
           margin="normal"
           fullWidth
-          defaultValue={openAIAPIKey}
-          onChange={(e) => setOpenAIAPIKey(e.target.value)}
           InputLabelProps={{ shrink: true }}
           type="password"
           label={'API Key da OpenAI'}
@@ -112,13 +124,11 @@ export const SettingsList = () => {
           helperText={(errors as any)?.prompt?.message}
           margin="normal"
           fullWidth
-          defaultValue={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
           InputLabelProps={{ shrink: true }}
           multiline
           label={'Prompt'}
           name="prompt"
-          rows={4}
+          rows={10}
         />
       </Box>
     </List>

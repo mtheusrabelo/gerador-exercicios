@@ -20,9 +20,14 @@ class SettingsService {
     };
   }
 
-  async save(settings: SettingsDto) {
+  async hasSettings() {
     const count = await repository.settings.count();
-    if (count === 0) {
+    return count > 0;
+  }
+
+  async save(settings: SettingsDto) {
+    const hasSettings = await this.hasSettings();
+    if (!hasSettings) {
       await repository.settings.add({ ...settings, id: FIXED_ID });
     }
 

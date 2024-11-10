@@ -16,6 +16,6 @@ export type ExerciseDto = {
 export type SettingsDto = {
   id?: string;
   openAIModel: string;
-  openAIKey: string;
+  openAIAPIKey: string;
   prompt: string;
 };
