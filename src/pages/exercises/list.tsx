@@ -94,7 +94,7 @@ export const ExerciseList = () => {
     <List
       headerButtons={[
         <Button
-          href="/categories/create"
+          href="/exercises/create"
           variant="contained"
           endIcon={<AutoAwesome />}
         >

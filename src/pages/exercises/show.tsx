@@ -23,7 +23,10 @@ export const ExerciseShow = () => {
   });
 
   return (
-    <Show isLoading={isLoading}>
+    <Show
+      title={<Typography variant="h5">Exibir exercício</Typography>}
+      isLoading={isLoading}
+    >
       <Stack gap={1}>
         <Typography variant="body1" fontWeight="bold">
           {'ID'}
@@ -31,23 +34,19 @@ export const ExerciseShow = () => {
         <TextField value={record?.id} />
 
         <Typography variant="body1" fontWeight="bold">
-          {'Title'}
+          {'Enunciado'}
         </Typography>
-        <TextField value={record?.title} />
+        <TextField value={record?.statement} />
 
         <Typography variant="body1" fontWeight="bold">
-          {'Content'}
+          {'Alternativas'}
         </Typography>
-        <MarkdownField value={record?.content} />
+        <MarkdownField value={record?.choices?.join(', ')} />
 
         <Typography variant="body1" fontWeight="bold">
-          {'Category'}
+          {'Categoria'}
         </Typography>
-        {categoryIsLoading ? <>Loading...</> : <>{categoryData?.data?.title}</>}
-        <Typography variant="body1" fontWeight="bold">
-          {'Status'}
-        </Typography>
-        <TextField value={record?.status} />
+        <TextField value={record?.categoryName} />
         <Typography variant="body1" fontWeight="bold">
           {'CreatedAt'}
         </Typography>
