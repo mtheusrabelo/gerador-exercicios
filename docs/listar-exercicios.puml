@@ -1,4 +1,4 @@
-@startuml lista-exercicios
+@startuml listar-exercicios
 
 actor "Usuário" as usuario
 participant "Navegador" as navegador

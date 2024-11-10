@@ -1,0 +1,21 @@
+@startuml criar-categoria
+
+actor "Usuário" as usuario
+participant "Navegador" as navegador
+participant "Provedor de categorias" as provedorCategorias
+participant "Serviço de categorias" as servicoCategorias
+participant "Armazenamento local" as armazenamentoLocal
+
+alt "Criar Categoria" 
+    usuario -> navegador: Visita /categories/create
+    group "Camada de domínio"
+    navegador -> provedorCategorias: Cadastrar nova categoria (nome e descrição)
+    provedorCategorias -> servicoCategorias: Cadastrar nova categoria
+    servicoCategorias -> armazenamentoLocal: Armazena categoria
+    armazenamentoLocal --> servicoCategorias: OK
+    servicoCategorias --> provedorCategorias: OK
+    provedorCategorias --> navegador: OK
+    end
+    navegador --> usuario: Redireciona para /categories
+end
+@enduml
