@@ -13,6 +13,7 @@ import routerBindings, {
 import { BrowserRouter } from 'react-router-dom';
 
 import { ColorModeContextProvider } from './contexts/color-mode';
+import { categoryProvider } from './providers/categories.provider';
 import { exerciseProvider } from './providers/exercise.provider';
 import { resources } from './resources';
 import { Routes } from './routes';
@@ -32,6 +33,7 @@ function App() {
                 dataProvider={{
                   default: exerciseProvider,
                   exercise: exerciseProvider,
+                  categories: categoryProvider,
                 }}
                 routerProvider={routerBindings}
                 resources={resources}

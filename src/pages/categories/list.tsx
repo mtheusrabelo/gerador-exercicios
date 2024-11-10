@@ -1,6 +1,7 @@
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import { ptBR } from '@mui/x-data-grid/locales';
 import {
+  DateField,
   DeleteButton,
   EditButton,
   List,
@@ -10,7 +11,12 @@ import {
 import React from 'react';
 
 export const CategoryList = () => {
-  const { dataGridProps } = useDataGrid({});
+  const { dataGridProps } = useDataGrid({
+    dataProviderName: 'categories',
+  });
+
+  console.log('dataGridProps');
+  console.log(dataGridProps);
 
   const columns = React.useMemo<GridColDef[]>(
     () => [
@@ -38,7 +44,10 @@ export const CategoryList = () => {
         field: 'createdAt',
         headerAlign: 'left',
         headerName: 'Data de criação',
-        minWidth: 200,
+        minWidth: 180,
+        renderCell: function render({ value }) {
+          return <DateField format="DD/MM/YYYY HH:mm:ss" value={value} />;
+        },
       },
       {
         field: 'actions',
