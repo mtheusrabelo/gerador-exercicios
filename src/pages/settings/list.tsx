@@ -32,14 +32,11 @@ export const SettingsList = () => {
 
   useEffect(() => {
     if (!currentSettings) return;
-
     const { openAIModel, openAIAPIKey, prompt } = currentSettings;
-
     setValue('openAIModel', openAIModel);
     setValue('openAIAPIKey', openAIAPIKey);
     setValue('prompt', prompt);
-    // update register value
-  }, [currentSettings]);
+  }, [currentSettings, setValue]);
 
   const saveSettings = () => {
     console.log('save');
