@@ -65,7 +65,6 @@ export const DashboadList = () => {
       <Box
         sx={{
           width: '60%',
-          backgroundColor: 'white',
         }}
       >
         <Box
