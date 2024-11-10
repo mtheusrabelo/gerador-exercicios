@@ -1,6 +1,6 @@
-import { Box, TextField } from "@mui/material";
-import { Create } from "@refinedev/mui";
-import { useForm } from "@refinedev/react-hook-form";
+import { Box, TextField, Typography } from '@mui/material';
+import { Create } from '@refinedev/mui';
+import { useForm } from '@refinedev/react-hook-form';
 
 export const CategoryCreate = () => {
   const {
@@ -11,24 +11,42 @@ export const CategoryCreate = () => {
   } = useForm({});
 
   return (
-    <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
+    <Create
+      title={<Typography variant="h5">Cadastrar categoria</Typography>}
+      isLoading={formLoading}
+      saveButtonProps={saveButtonProps}
+    >
       <Box
         component="form"
-        sx={{ display: "flex", flexDirection: "column" }}
+        sx={{ display: 'flex', flexDirection: 'column' }}
         autoComplete="off"
       >
         <TextField
-          {...register("title", {
-            required: "This field is required",
+          {...register('name', {
+            required: 'This field is required',
           })}
-          error={!!(errors as any)?.title}
-          helperText={(errors as any)?.title?.message}
+          error={!!(errors as any)?.name}
+          helperText={(errors as any)?.name?.message}
           margin="normal"
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="text"
-          label={"Title"}
-          name="title"
+          label={'Nome'}
+          name="name"
+        />
+
+        <TextField
+          {...register('description', {
+            required: 'This field is required',
+          })}
+          error={!!(errors as any)?.description}
+          helperText={(errors as any)?.description?.message}
+          margin="normal"
+          fullWidth
+          InputLabelProps={{ shrink: true }}
+          type="text"
+          label={'Descrição'}
+          name="description"
         />
       </Box>
     </Create>
