@@ -18,49 +18,47 @@ export const SettingsList = () => {
         </>
       )}
     >
-      <Box
-        component="form"
-        sx={{ display: 'flex', flexDirection: 'column' }}
-        autoComplete="off"
-      >
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <TextField
           {...register('openAIModel', {
             required: 'This field is required',
           })}
-          error={!!(errors as any)?.title}
-          helperText={(errors as any)?.title?.message}
+          error={!!(errors as any)?.openAIModel}
+          helperText={(errors as any)?.openAIModel?.message}
           margin="normal"
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="text"
           label={'Modelo da OpenAI'}
           name="openAIModel"
+          autoComplete="off"
         />
         <TextField
           {...register('openAIKey', {
             required: 'This field is required',
           })}
-          error={!!(errors as any)?.title}
-          helperText={(errors as any)?.title?.message}
+          error={!!(errors as any)?.openAIKey}
+          helperText={(errors as any)?.openAIKey?.message}
           margin="normal"
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="password"
           label={'API Key da OpenAI'}
           name="openAIKey"
+          autoComplete="new-password"
         />
         <TextField
-          {...register('content', {
+          {...register('prompt', {
             required: 'This field is required',
           })}
-          error={!!(errors as any)?.content}
-          helperText={(errors as any)?.content?.message}
+          error={!!(errors as any)?.prompt}
+          helperText={(errors as any)?.prompt?.message}
           margin="normal"
           fullWidth
           InputLabelProps={{ shrink: true }}
           multiline
           label={'Prompt'}
-          name="content"
+          name="prompt"
           rows={4}
         />
       </Box>
