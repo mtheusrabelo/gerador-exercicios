@@ -14,7 +14,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { ColorModeContextProvider } from './contexts/color-mode';
 import { categoryProvider } from './providers/categories.provider';
-import { exerciseProvider } from './providers/exercise.provider';
+import { exercisesProvider } from './providers/exercises.provider';
 import { resources } from './resources';
 import { Routes } from './routes';
 
@@ -31,8 +31,8 @@ function App() {
             <DevtoolsProvider>
               <Refine
                 dataProvider={{
-                  default: exerciseProvider,
-                  exercise: exerciseProvider,
+                  default: exercisesProvider,
+                  exercises: exercisesProvider,
                   categories: categoryProvider,
                 }}
                 routerProvider={routerBindings}

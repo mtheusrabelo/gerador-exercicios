@@ -1,10 +1,29 @@
 import { DataProvider } from '@refinedev/core';
 
-export const exerciseProvider: DataProvider = {
+export const exercisesProvider: DataProvider = {
   getList: async ({ resource, pagination, sorters, filters, meta }) => {
+    const data = [
+      {
+        id: '1',
+        categoryId: '3',
+        categoryName: 'Category 1',
+        statement: 'Content 1',
+        choices: [],
+        createdAt: new Date().toISOString(),
+      },
+      {
+        id: '2',
+        categoryId: '3',
+        categoryName: 'Category 2',
+        statement: 'Content 2',
+        choices: [],
+        createdAt: new Date().toISOString(),
+      },
+    ];
+
     return {
-      data: [],
-      total: 0,
+      data,
+      total: data.length,
     } as any;
   },
   getOne: async ({ resource, id, meta }) => {
