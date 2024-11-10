@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import { ptBR } from '@mui/x-data-grid/locales';
 import {
@@ -71,7 +72,13 @@ export const CategoryList = () => {
   );
 
   return (
-    <List>
+    <List
+      headerButtons={[
+        <Button href="/categories/create" variant="contained">
+          Cadastrar
+        </Button>,
+      ]}
+    >
       <DataGrid
         {...dataGridProps}
         columns={columns}

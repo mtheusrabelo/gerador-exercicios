@@ -1,4 +1,4 @@
-import { Box, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import { Create } from '@refinedev/mui';
 import { useForm } from '@refinedev/react-hook-form';
 
@@ -15,6 +15,11 @@ export const CategoryCreate = () => {
       title={<Typography variant="h5">Cadastrar categoria</Typography>}
       isLoading={formLoading}
       saveButtonProps={saveButtonProps}
+      footerButtons={() => (
+        <Button href="/categories/create" variant="contained">
+          Cadastrar
+        </Button>
+      )}
     >
       <Box
         component="form"
