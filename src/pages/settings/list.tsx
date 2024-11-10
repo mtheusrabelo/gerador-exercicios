@@ -17,7 +17,6 @@ export const SettingsList = () => {
     defaultValues: {
       openAIModel: '',
       openAIAPIKey: '',
-      prompt: '',
     },
   });
 
@@ -30,10 +29,9 @@ export const SettingsList = () => {
 
   useEffect(() => {
     if (!currentSettings) return;
-    const { openAIModel, openAIAPIKey, prompt } = currentSettings;
+    const { openAIModel, openAIAPIKey } = currentSettings;
     setValue('openAIModel', openAIModel);
     setValue('openAIAPIKey', openAIAPIKey);
-    setValue('prompt', prompt);
   }, [currentSettings, setValue]);
 
   return (
@@ -87,20 +85,6 @@ export const SettingsList = () => {
           label={'API Key da OpenAI'}
           name="openAIAPIKey"
           autoComplete="new-password"
-        />
-        <TextField
-          {...register('prompt', {
-            required: 'This field is required',
-          })}
-          error={!!(errors as any)?.prompt}
-          helperText={(errors as any)?.prompt?.message}
-          margin="normal"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          multiline
-          label={'Prompt'}
-          name="prompt"
-          rows={10}
         />
       </Box>
     </List>

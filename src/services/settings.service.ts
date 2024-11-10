@@ -6,7 +6,6 @@ const FIXED_ID = '1';
 const BASE_SETTINGS = {
   openAIModel: 'gpt-4o-mini',
   openAIKey: '',
-  prompt: `prompt`,
 };
 
 export class SettingsService {
@@ -29,11 +28,7 @@ export class SettingsService {
 
   async hasValidSettings() {
     const { data: settings } = await this.get();
-    return (
-      settings.openAIKey !== '' &&
-      settings.openAIModel !== '' &&
-      settings.prompt !== ''
-    );
+    return settings.openAIKey !== '' && settings.openAIModel !== '';
   }
 
   async save(settings: SettingsDto) {
