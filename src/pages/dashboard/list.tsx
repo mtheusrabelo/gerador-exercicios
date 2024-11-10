@@ -21,15 +21,20 @@ type ItemProps = {
   Description: React.FC;
 };
 
+const ItemWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
+`;
+
 const Item = ({ Icon, Title, Description }: ItemProps) => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 2,
-      }}
-    >
+    <ItemWrapper>
       <Box>
         <Icon />
       </Box>
@@ -48,29 +53,47 @@ const Item = ({ Icon, Title, Description }: ItemProps) => {
       >
         <Description />
       </Box>
-    </Box>
+    </ItemWrapper>
   );
 };
 
+const ItemsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  @media (max-width: 768px) {
+    gap: 30px;
+    flex-direction: column;
+  }
+`;
+
+const PageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2;
+  justify-content: center;
+  align-items: center;
+  padding-top: 60px;
+
+  @media (min-width: 769px) {
+    padding-top: 0;
+    height: calc(100vh - 160px);
+  }
+`;
+
+const ContentWrapper = styled.div`
+  width: 60%;
+
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+`;
+
 export const DashboadList = () => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 2,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 'calc(100vh - 160px)',
-        // backgroundColor: 'red',
-        overflowY: 'hidden',
-      }}
-    >
-      <Box
-        sx={{
-          width: '60%',
-        }}
-      >
+    <PageWrapper>
+      <ContentWrapper>
         <Box
           sx={{
             display: 'flex',
@@ -83,13 +106,7 @@ export const DashboadList = () => {
           <AppTitle>Gerador de Exercícios</AppTitle>
           <AppSubtitle>Desenvolvido por Matheus Rabelo</AppSubtitle>
         </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: 10,
-          }}
-        >
+        <ItemsWrapper>
           <Item
             Icon={() => (
               <ThumbUpAltOutlined
@@ -162,8 +179,8 @@ export const DashboadList = () => {
               </span>
             )}
           />
-        </Box>
-      </Box>
-    </Box>
+        </ItemsWrapper>
+      </ContentWrapper>
+    </PageWrapper>
   );
 };
