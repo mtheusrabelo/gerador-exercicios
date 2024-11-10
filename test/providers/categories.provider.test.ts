@@ -39,7 +39,7 @@ test('Should be able to retrieve single category', async () => {
   expect(getFn).toHaveBeenCalledWith(params.id);
 });
 
-test('Should be able to retrieve create category', async () => {
+test('Should be able to create category', async () => {
   const variables: CategoryDto = {
     id: '123',
     name: 'Category',
@@ -58,7 +58,7 @@ test('Should be able to retrieve create category', async () => {
   expect(createFn).toHaveBeenCalledWith(variables);
 });
 
-test('Should be able to retrieve update category', async () => {
+test('Should be able to update category', async () => {
   const variables: CategoryDto = {
     id: '123',
     name: 'Category',
@@ -77,7 +77,7 @@ test('Should be able to retrieve update category', async () => {
   expect(updateFn).toHaveBeenCalledWith(variables.id, variables);
 });
 
-test('Should be able to retrieve delete category', async () => {
+test('Should be able to delete category', async () => {
   const params = {
     id: '123',
   };
