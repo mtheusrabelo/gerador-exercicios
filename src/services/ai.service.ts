@@ -12,11 +12,6 @@ export class AIService {
     userPrompt: string,
     responseFormat: object,
   ) {
-    const isValid = await this.settingsService.hasValidSettings();
-    if (!isValid) {
-      throw new Error('Settings not found');
-    }
-
     const settings = await this.settingsService.get();
     const { openAIAPIKey, openAIModel } = settings.data;
 
@@ -47,7 +42,7 @@ export class AIService {
     try {
       result = JSON.parse(choices[0]?.message?.content);
     } catch (err) {
-      console.error('error', err);
+      console.error('Something went wrong while parsing response', err);
     }
 
     return result;
