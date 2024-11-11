@@ -23,4 +23,5 @@ alt "Criar Exercício"
     end
     navegador --> usuario: Redireciona para /exercises
 end
+
 @enduml

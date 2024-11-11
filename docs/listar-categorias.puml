@@ -18,6 +18,5 @@ alt "Listar Categorias"
     end
     navegador --> usuario: Renderiza lista de categorias
 end
-
 @enduml
 
