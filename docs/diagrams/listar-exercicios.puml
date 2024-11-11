@@ -18,4 +18,5 @@ alt "Listar Exercícios"
     end
     navegador --> usuario: Renderiza lista de exercícios
 end
+
 @enduml
