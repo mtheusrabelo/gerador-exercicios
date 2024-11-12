@@ -16,11 +16,9 @@ test('Should be able create completion', async () => {
   };
 
   const geSettingsFn = vi.fn().mockResolvedValue({ data: settings });
-  const hasValidSettingsFn = vi.fn().mockResolvedValue(true);
 
   const settingsService = {
     get: geSettingsFn,
-    hasValidSettings: hasValidSettingsFn,
   } as any as SettingsService;
 
   const axios = {
@@ -49,7 +47,6 @@ test('Should be able create completion', async () => {
     responseFormat,
   );
 
-  expect(hasValidSettingsFn).toHaveBeenCalled();
   expect(geSettingsFn).toHaveBeenCalled();
   expect(axios.request).toHaveBeenCalled();
   expect(completion).toStrictEqual(content);
