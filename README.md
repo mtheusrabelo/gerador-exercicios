@@ -8,4 +8,4 @@ Gerador de exercícios de múltipla escolha com LLM
 
 ## Autor
 
-Matheus Freire Rabelo
+Matheus Rabelo
